@@ -35,14 +35,12 @@
 #define kCameraMovePerTick		8
 #define kManRotateSpeed			0.2
 
-#define kMovePerTick			6
-#define kMaxBlobs				16
+#define kManPerTick				6
 
 #define	kMaxShots				128
 #define kShotSpeed				800.0		// pixels/sec
 
 #define kParticleSize			8
-#define kParticleSpacing		12
 
 // helper functions
 class Mix_Chunk;

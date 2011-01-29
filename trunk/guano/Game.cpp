@@ -5,20 +5,11 @@
 #include "Man.h"
 #include "Camera.h"
 
-
 //linux hack
 #ifdef __linux
 #include <unistd.h>
 #endif
 
-
-// man
-// camera
-// blobs
-// man moves
-// camera follows
-// man kills blobs
-// R -> G -> B -> R -> ...
 
 Game::Game()
 {
@@ -29,11 +20,9 @@ Game::Game()
 
 	// init random
 	init_genrand(time(NULL));
-//	init_genrand(5);
 
 	m_man = new Man();
 	m_cam = new Camera();
-	memset(m_score, 0, sizeof(m_score));
 
 	memset(m_shots, 0, sizeof(m_shots));
 	m_shotIndex = 0;
@@ -66,15 +55,14 @@ void Game::stopGame()
 void Game::updateShots(uint32_t elapsedMs) {
 	for (int i=0; i<kMaxShots; ++i) {
 		Shot& shot = m_shots[i];
-		if (!(shot.m_flags&SHOT_FLAGS_ACTIVE))
+		if (!shot.m_bActive)
 			continue;
 
 		shot.m_pos += (shot.m_vel*elapsedMs)*0.001;	// velocity is in units per second
-		shot.m_rot += shot.m_rvel*elapsedMs*0.001;
 
 		if (shot.m_pos.x < -5000 || shot.m_pos.x > 5000 ||
 			shot.m_pos.y < -5000 || shot.m_pos.y > 5000)
-			shot.m_flags = 0;
+			shot.m_bActive = false;
 
 		// TODO: remove if it is too far away
 	}
@@ -89,7 +77,7 @@ void Game::renderShots() {
 
 	for (int i=0; i<kMaxShots; ++i) {
 		Shot& shot = m_shots[i];
-		if (!(shot.m_flags&SHOT_FLAGS_ACTIVE))
+		if (!shot.m_bActive)
 			continue;
 
 		float color[4] = {1,1,1,1};
@@ -99,7 +87,6 @@ void Game::renderShots() {
 
 		glPushMatrix();
 		glTranslatef(shot.m_pos.x, shot.m_pos.y, 0);
-		glRotatef(shot.m_rot, 0, 0, 1);
 //		glScalef(2.0, 1.0, 0);
 		glBegin(GL_TRIANGLE_STRIP);
 		glTexCoord2d(1,1); glVertex3f(+kWidth,+kWidth,0); // Top Right
@@ -128,13 +115,11 @@ void Game::renderShots() {
 	 */
 }
 
-void Game::spawnShot(vector2f pos, float heading, float speed, uint32_t flags) {
+void Game::spawnShot(vector2f pos, float heading, float speed) {
 	Shot& shot = m_shots[m_shotIndex];
 	shot.m_pos = pos;
 	shot.m_vel = vectorFromHeading(heading, speed);
-	shot.m_rot = heading;
-	shot.m_rvel = 500;
-	shot.m_flags = flags|SHOT_FLAGS_ACTIVE;
+	shot.m_bActive = true;
 
 	// advance shot index, so next shot fired uses next available shot
 	m_shotIndex = (m_shotIndex+1)%kMaxShots;
@@ -145,7 +130,6 @@ void Game::spawnShot(vector2f pos, float heading, float speed, uint32_t flags) {
 void Game::render()
 {
 	char buffer[64];
-	int i;
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -160,7 +144,7 @@ void Game::render()
 	renderShots();
 	m_man->render();
 
-	sprintf(buffer, "FUN: %d", m_elapsed/1000);
+	sprintf(buffer, "elapsed %d", m_elapsed/1000);
 	glTranslatef(50,25,0);
 	m_font->drawText(buffer);
 
@@ -168,19 +152,12 @@ void Game::render()
 	glLoadIdentity();
 
 	glPushMatrix();
-	char label[][3] = {"R:", "G:", "B:", "A:"};
 	glTranslatef(50,25,0);
 	glScalef(2, 2, 0);
-	for (i=0; i<4; ++i) {
 		glTranslatef(0, 16, 0);
 
-		// if not yet unlocked, hide it
-		if (m_score[0] == 0)
-			continue;
-
-		sprintf(buffer, "%s %d", label[i], m_score[i]);
+		sprintf(buffer, "buffalo");
 		m_font->drawText(buffer);
-	}
 	glPopMatrix();
 
 	glFlush();
@@ -194,7 +171,7 @@ void Game::update(uint32_t elapsedMs, Gamepad* gamepad)
 	m_man->update(elapsedMs, gamepad);
 
 	if (gamepad->didPress(GAMEPAD_B)) {
-		spawnShot(m_man->m_pos, m_man->m_rot, (m_man->m_speed*10.0)+kShotSpeed+(genrand_real1()*kShotSpeed*0.11), 0);
+		spawnShot(m_man->m_pos, m_man->m_rot, (m_man->m_speed*10.0)+kShotSpeed+(genrand_real1()*kShotSpeed*0.11));
 	}
 
 	updateShots(elapsedMs);

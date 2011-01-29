@@ -41,11 +41,9 @@ void Man::render() {
 	
 }
 
-#define kMinSpeed	-13.0
-#define kMaxSpeed	 20.0
-#define kAccelSpeed	 12.0
-#define kDecelSpeed	 3.0
-#define kTurnSpeed	-0.1
+#define kMinSpeed	-4.0
+#define kMaxSpeed	+8.0
+#define kTurnSpeed	-0.15
 
 void Man::update(uint32_t elapsedMs, Gamepad* gamepad) {
 	if (gamepad->isHeld(GAMEPAD_LEFT)) {
@@ -57,18 +55,11 @@ void Man::update(uint32_t elapsedMs, Gamepad* gamepad) {
 	}
 	
 	if (gamepad->isHeld(GAMEPAD_UP)) {
-		m_speed = MAX(kMinSpeed, MIN(kMaxSpeed, m_speed+(kAccelSpeed*elapsedMs*0.001)));
+		m_speed = kMaxSpeed;
 	} else if (gamepad->isHeld(GAMEPAD_DOWN)) {
-		m_speed = MAX(kMinSpeed, MIN(kMaxSpeed, m_speed-(kAccelSpeed*elapsedMs*0.001)));
+		m_speed = kMinSpeed;
 	} else {
-		if (m_speed > kDecelSpeed) {
-			m_speed -= kDecelSpeed;
-		} else if (m_speed < -kDecelSpeed) {
-			m_speed += kDecelSpeed;
-		} else {
-			m_speed = 0;
-		}
-
+		m_speed = 0;
 	}
 	
 	m_pos += vectorFromHeading(m_rot, m_speed);
