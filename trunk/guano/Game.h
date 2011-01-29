@@ -17,13 +17,18 @@ typedef struct Shot {
 class Game
 {
 public:
-	Game();
-	~Game();
-
+	static Game* getInstance();
+	
 	void render();
 	void update(uint32_t elapsedMs, Gamepad* gamepad);
 
+	vector2f getCameraPos();
+	float getCameraZoom();
+	
 private:
+	Game();
+	~Game();
+	
 	void startGame();
 	void stopGame();
 	
