@@ -19,17 +19,17 @@ bool Sprite2d::load(const char* filename, uint16_t _frameWidth, uint16_t _frameH
 	texture = loadTexture(filename, &textureWidth, &textureHeight);
 	if (!texture)
 		return false;
-	
+
 	assert(_frameWidth > 0 &&
 		   _frameHeight > 0 &&
 		   _frameWidth <= textureWidth &&
 		   _frameHeight <= textureHeight);
-	
+
 	frameWidth = _frameWidth;
 	frameHeight = _frameHeight;
 	framesPerRow = textureWidth/_frameWidth;
 	maxFrames = framesPerRow * (textureHeight/frameHeight);
-	
+
 	return true;
 }
 
@@ -41,7 +41,7 @@ void Sprite2d::draw(uint8_t frame)
 		assert(false);
 		return;
 	}
-	
+
 	// invalid frame
 	if (frame >= maxFrames) {
 		assert(false);
@@ -52,34 +52,34 @@ void Sprite2d::draw(uint8_t frame)
 	const GLfloat height = frameHeight/(float)textureHeight;
 	const uint16_t col = frame % framesPerRow;
 	const uint16_t row = frame / framesPerRow;
-	
+
 	const GLshort spriteVertices[] = {
 		0, 0,
 		frameWidth, 0,
 		0, frameHeight,
 		frameWidth, frameHeight,
 	};
-	
+
 	const GLfloat textureCoords[] = {
 		width*col, height*row,
 		width*(col+1), height*row,
 		width*col, height*(row+1),
 		width*(col+1), height*(row+1),
 	};
-	
+
 	glColor3ub(0xFF, 0xFF, 0xFF);
 
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, texture);
-	
+
 	glVertexPointer(2, GL_SHORT, 0, spriteVertices);
 	glEnableClientState(GL_VERTEX_ARRAY);
-	
+
 	glTexCoordPointer(2, GL_FLOAT, 0, textureCoords);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	
+
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-	
+
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
@@ -90,7 +90,7 @@ void Sprite2d::draw(uint8_t frame)
 void Sprite2d::drawText(const char* str)
 {
 	glPushMatrix();
-	
+
 	const char* c = str;
 
 	while (*c != '\0')
@@ -109,10 +109,10 @@ void Sprite2d::drawText(const char* str)
 			draw(46);
 		else if (*c == '*')
 			draw(47);
-		
+
 		glTranslatef(frameWidth, 0, 0);
 		c++;
 	}
-	
+
 	glPopMatrix();
 }
