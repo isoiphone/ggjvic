@@ -30,6 +30,9 @@ Game::Game()
 	// load resources
 	m_font = new Sprite2d();
 	m_font->load("visitor_16px.png", 16, 16);
+	
+	m_buffalos = new Sprite2d();
+	m_buffalos->load("buffalos.png", 32, 32);
 
 	m_sparkle = loadTexture("sparkle.png");
 
@@ -145,7 +148,7 @@ void Game::render()
 
 	// RENDER GAME
 	glPushMatrix();
-	buffRender();
+	buffRender(m_buffalos);
 	glPopMatrix();
 	
 	renderShots();

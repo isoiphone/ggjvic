@@ -38,6 +38,7 @@ private:
 	GLint	m_sparkle;
 	
 	Sprite2d* m_font;
+	Sprite2d* m_buffalos;
 	
 	int32_t m_elapsed;
 };

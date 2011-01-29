@@ -4,12 +4,10 @@
 
 Buffalo herd[kMaxBuffalo];
 
-static Sprite2d mSprite;
 static int mFrame = 0;
 static int mTime = 0;
 
 void buffInit() {
-	mSprite.load("buffalos.png", 32, 32);
 }
 
 void buffReset() {
@@ -20,10 +18,10 @@ void buffReset() {
 	}
 }
 
-void buffRender() {
+void buffRender(Sprite2d* sprite) {
 	glPushMatrix();
 		glTranslatef(100, 100, 0);
-		mSprite.draw(mFrame);
+		sprite->draw(mFrame);
 	glPopMatrix();
 	
 }
