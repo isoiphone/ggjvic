@@ -25,6 +25,8 @@
 		0CD5487212BC69A500A1F023 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CD5487112BC69A500A1F023 /* Camera.cpp */; };
 		0CD54C9012BCB18400A1F023 /* sparkle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CD54C8F12BCB18400A1F023 /* sparkle.png */; };
 		0CE51CBE104C80A30088CAEC /* SDL_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE51CBD104C80A30088CAEC /* SDL_mixer.framework */; };
+		0CFE8B2B12F4AA8D00CCCFFB /* Buffalo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFE8B2912F4AA8D00CCCFFB /* Buffalo.cpp */; };
+		0CFE8BD912F4C3B400CCCFFB /* buffalos.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CFE8BD812F4C3B400CCCFFB /* buffalos.png */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +73,9 @@
 		0CD5487112BC69A500A1F023 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Camera.cpp; path = ../Camera.cpp; sourceTree = SOURCE_ROOT; };
 		0CD54C8F12BCB18400A1F023 /* sparkle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sparkle.png; path = ../sparkle.png; sourceTree = SOURCE_ROOT; };
 		0CE51CBD104C80A30088CAEC /* SDL_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL_mixer.framework; path = /Library/Frameworks/SDL_mixer.framework; sourceTree = "<absolute>"; };
+		0CFE8B2912F4AA8D00CCCFFB /* Buffalo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Buffalo.cpp; path = ../Buffalo.cpp; sourceTree = SOURCE_ROOT; };
+		0CFE8B2A12F4AA8D00CCCFFB /* Buffalo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Buffalo.h; path = ../Buffalo.h; sourceTree = SOURCE_ROOT; };
+		0CFE8BD812F4C3B400CCCFFB /* buffalos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = buffalos.png; path = ../art/buffalos.png; sourceTree = SOURCE_ROOT; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -99,6 +104,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				0CFE8B2A12F4AA8D00CCCFFB /* Buffalo.h */,
+				0CFE8B2912F4AA8D00CCCFFB /* Buffalo.cpp */,
 				0CD5487012BC69A500A1F023 /* Camera.h */,
 				0CD5487112BC69A500A1F023 /* Camera.cpp */,
 				0CD547F812BC609400A1F023 /* Man.h */,
@@ -185,6 +192,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0CFE8BD812F4C3B400CCCFFB /* buffalos.png */,
 				0CD54C8F12BCB18400A1F023 /* sparkle.png */,
 				0CAE9900104C89F000BF45E1 /* visitor_16px.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -254,6 +262,7 @@
 			files = (
 				0CAE9913104C89F000BF45E1 /* visitor_16px.png in Resources */,
 				0CD54C9012BCB18400A1F023 /* sparkle.png in Resources */,
+				0CFE8BD912F4C3B400CCCFFB /* buffalos.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +281,7 @@
 				0C2DBA5C104C7A7800B05E35 /* main.cpp in Sources */,
 				0CD547FA12BC609400A1F023 /* Man.cpp in Sources */,
 				0CD5487212BC69A500A1F023 /* Camera.cpp in Sources */,
+				0CFE8B2B12F4AA8D00CCCFFB /* Buffalo.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

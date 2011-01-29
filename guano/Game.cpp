@@ -4,12 +4,12 @@
 #include "Sprite.h"
 #include "Man.h"
 #include "Camera.h"
+#include "Buffalo.h"
 
 //linux hack
 #ifdef __linux
 #include <unistd.h>
 #endif
-
 
 Game::Game()
 {
@@ -33,6 +33,8 @@ Game::Game()
 
 	m_sparkle = loadTexture("sparkle.png");
 
+	buffInit();
+	
 	startGame();
 }
 
@@ -46,6 +48,7 @@ Game::~Game()
 void Game::startGame()
 {
 	m_elapsed = 0;
+	buffReset();
 }
 
 void Game::stopGame()
@@ -141,6 +144,10 @@ void Game::render()
 	glScalef(m_cam->m_zoom, m_cam->m_zoom, 0);
 
 	// RENDER GAME
+	glPushMatrix();
+	buffRender();
+	glPopMatrix();
+	
 	renderShots();
 	m_man->render();
 
@@ -174,6 +181,7 @@ void Game::update(uint32_t elapsedMs, Gamepad* gamepad)
 		spawnShot(m_man->m_pos, m_man->m_rot, (m_man->m_speed*10.0)+kShotSpeed+(genrand_real1()*kShotSpeed*0.11));
 	}
 
+	buffUpdate(elapsedMs, gamepad);
 	updateShots(elapsedMs);
 
 	// man moves, camera follows man
