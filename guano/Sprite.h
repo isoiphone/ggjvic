@@ -3,10 +3,6 @@
 
 #include "main.h"
 
-#define kMaxCharWidth	16
-#define kMaxCharHeight	24
-#define kFontSpriteSize	256
-
 class Sprite2d {
 public:
 	Sprite2d();
@@ -20,21 +16,5 @@ public:
 	uint16_t frameWidth, frameHeight;
 	uint16_t framesPerRow, maxFrames;
 };
-
-/*
-class FontSprite {
-public:
-	FontSprite();
-	virtual ~FontSprite();
-	
-	void drawChar(char ch);
-	void drawString(const char* str);
-	
-	Sprite2d* sprite;
-	char first, last;
-	uint8_t* widths;
-};
-*/
-
 
 #endif
