@@ -23,9 +23,12 @@ void terrReset() {
 }
 
 void terrRender(Sprite2d* sprite) {
-	for(int j = 0; j < kScreenWidth; j+=32)
+
+	vector2f pos = Game::getInstance()->getCameraPos();
+    glTranslatef(-pos.x,-pos.y,0);
+	for(int j = 0; j < kScreenHeight; j+=32)
 	{
-	    for(int i = 0; i < kScreenHeight; i+=32)
+	    for(int i = 0; i < kScreenWidth; i+=32)
 	    {
         glPushMatrix();
 		glTranslatef(i, j, 0);
@@ -35,7 +38,6 @@ void terrRender(Sprite2d* sprite) {
 	}
 
 	// get game this way
-	vector2f pos = Game::getInstance()->getCameraPos();
 	float zoom = Game::getInstance()->getCameraZoom();
 
 	// or if you prefer
