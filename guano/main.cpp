@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 	initAudio();
 
 	// init game
-	Game* game = new Game();
+	Game* game = Game::getInstance();
 	Gamepad* gamepad = new Gamepad();
 	const Uint8* keystate = SDL_GetKeyState(NULL);
 
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 	}
 
 	// destroy game
-	delete game;
+//	delete game;
 	delete gamepad;
 
 	// destroy SDL and Mixer

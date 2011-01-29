@@ -27,6 +27,7 @@
 		0CE51CBE104C80A30088CAEC /* SDL_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE51CBD104C80A30088CAEC /* SDL_mixer.framework */; };
 		0CFE8B2B12F4AA8D00CCCFFB /* Buffalo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFE8B2912F4AA8D00CCCFFB /* Buffalo.cpp */; };
 		0CFE8BD912F4C3B400CCCFFB /* buffalos.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CFE8BD812F4C3B400CCCFFB /* buffalos.png */; };
+		0CFE8C7512F4C93600CCCFFB /* Terrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFE8C7312F4C93600CCCFFB /* Terrain.cpp */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +77,8 @@
 		0CFE8B2912F4AA8D00CCCFFB /* Buffalo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Buffalo.cpp; path = ../Buffalo.cpp; sourceTree = SOURCE_ROOT; };
 		0CFE8B2A12F4AA8D00CCCFFB /* Buffalo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Buffalo.h; path = ../Buffalo.h; sourceTree = SOURCE_ROOT; };
 		0CFE8BD812F4C3B400CCCFFB /* buffalos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = buffalos.png; path = ../art/buffalos.png; sourceTree = SOURCE_ROOT; };
+		0CFE8C7312F4C93600CCCFFB /* Terrain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Terrain.cpp; path = ../Terrain.cpp; sourceTree = SOURCE_ROOT; };
+		0CFE8C7412F4C93600CCCFFB /* Terrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Terrain.h; path = ../Terrain.h; sourceTree = SOURCE_ROOT; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -104,6 +107,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				0CFE8C7412F4C93600CCCFFB /* Terrain.h */,
+				0CFE8C7312F4C93600CCCFFB /* Terrain.cpp */,
 				0CFE8B2A12F4AA8D00CCCFFB /* Buffalo.h */,
 				0CFE8B2912F4AA8D00CCCFFB /* Buffalo.cpp */,
 				0CD5487012BC69A500A1F023 /* Camera.h */,
@@ -282,6 +287,7 @@
 				0CD547FA12BC609400A1F023 /* Man.cpp in Sources */,
 				0CD5487212BC69A500A1F023 /* Camera.cpp in Sources */,
 				0CFE8B2B12F4AA8D00CCCFFB /* Buffalo.cpp in Sources */,
+				0CFE8C7512F4C93600CCCFFB /* Terrain.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

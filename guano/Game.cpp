@@ -5,11 +5,17 @@
 #include "Man.h"
 #include "Camera.h"
 #include "Buffalo.h"
+#include "Terrain.h"
 
 //linux hack
 #ifdef __linux
 #include <unistd.h>
 #endif
+
+Game* Game::getInstance() {
+	static Game inst;
+	return &inst;
+}
 
 Game::Game()
 {
@@ -37,6 +43,7 @@ Game::Game()
 	m_sparkle = loadTexture("sparkle.png");
 
 	buffInit();
+	terrInit();
 	
 	startGame();
 }
@@ -52,6 +59,7 @@ void Game::startGame()
 {
 	m_elapsed = 0;
 	buffReset();
+	terrReset();
 }
 
 void Game::stopGame()
@@ -150,6 +158,10 @@ void Game::render()
 	glPushMatrix();
 	buffRender(m_buffalos);
 	glPopMatrix();
+
+	glPushMatrix();
+	terrRender(m_buffalos);
+	glPopMatrix();
 	
 	renderShots();
 	m_man->render();
@@ -185,6 +197,7 @@ void Game::update(uint32_t elapsedMs, Gamepad* gamepad)
 	}
 
 	buffUpdate(elapsedMs, gamepad);
+	terrUpdate(elapsedMs, gamepad);
 	updateShots(elapsedMs);
 
 	// man moves, camera follows man
@@ -194,4 +207,10 @@ void Game::update(uint32_t elapsedMs, Gamepad* gamepad)
 	m_elapsed += elapsedMs;
 }
 
+vector2f Game::getCameraPos() {
+	return m_cam->m_pos;
+}
 
+float Game::getCameraZoom() {
+	return m_cam->m_zoom;
+}
