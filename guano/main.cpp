@@ -168,8 +168,116 @@ void playSound(Mix_Chunk* sound, int channel/*=-1*/)
 		fprintf(stderr,"failed to play sound. Reason: %s\n", Mix_GetError());
 }
 
-// based on post by Luke Philpot: http://www.gamedev.net/community/forums/topic.asp?topic_id=184477
+SDL_Surface *prepGLTexture(SDL_Surface *surface, GLfloat *texCoords=NULL, bool freeSource=true);
+SDL_Surface *prepGLTexture(SDL_Surface *surface, GLfloat *texCoords, const bool freeSource)
+{
+	// round up to the nearest power of two
+	const int w = pow(2, ceil( log(surface->w)/log(2) ) );
+	const int h = pow(2, ceil( log(surface->h)/log(2) ) );
+	if (texCoords) {
+		texCoords[0] = 0.0f;					// min X
+		texCoords[1] = 0.0f;					// min Y
+		texCoords[2] = (GLfloat)surface->w / w;	// max X
+		texCoords[3] = (GLfloat)surface->h / h;	// max Y
+	}
+	
+	Uint32 rmask,gmask,bmask,amask;
+#if SDL_BYTEORDER == SDL_LIL_ENDIAN
+	rmask = 0x000000FF;
+	gmask = 0x0000FF00;
+	bmask = 0x00FF0000;
+	amask =	0xFF000000;
+#else
+	rmask = 0xFF000000;
+	gmask = 0x00FF0000;
+	bmask = 0x0000FF00;
+	amask = 0x000000FF;
+#endif
+	
+	SDL_Surface *image = SDL_CreateRGBSurface(SDL_SWSURFACE, w, h, 32, rmask, gmask, bmask, amask);
+	
+	if (!image)
+		return NULL;
+	
+	// save alpha blending attributes
+	const Uint32 savedFlags = surface->flags&(SDL_SRCALPHA|SDL_RLEACCELOK);
+	const Uint8  savedAlpha = surface->format->alpha;
+	if ( (savedFlags & SDL_SRCALPHA) == SDL_SRCALPHA ) {
+		SDL_SetAlpha(surface, 0, 0);
+	}
+	
+	// copy surface into the GL texture image
+	SDL_Rect srcArea, destArea;
+	srcArea.x = 0;
+	srcArea.y = 0;
+	srcArea.w = surface->w;
+	srcArea.h = surface->h;
+	destArea.x = 0;
+	destArea.y = 0;
+	SDL_BlitSurface(surface, &srcArea, image, &destArea);
+	
+	// restore alpha blending attributes
+	if ((savedFlags & SDL_SRCALPHA) == SDL_SRCALPHA) {
+		SDL_SetAlpha(surface, savedFlags, savedAlpha);
+	}
+	
+	if (freeSource) {
+		SDL_FreeSurface(surface);
+	}
+	
+	return image;
+}
+
+
+// based on code by Sam Lantinga. Adapted from: http://www.devolution.com/pipermail/sdl/2005-February/067479.html
 GLuint loadTexture(const char* filename, uint16_t* width, uint16_t* height)
+{
+	// load image
+	char actualPath[1024];
+	get_bundle_path(filename, actualPath, 1024);
+	
+    SDL_Surface *image = IMG_Load(actualPath);
+	
+	if (!image) {
+		fprintf(stderr, "Unable to load texture: %s\n", filename);
+		return GL_INVALID_VALUE;
+	}
+	
+	// convert it to format expected by OpenGL
+	image = prepGLTexture(image);
+	if (!image) {
+		fprintf(stderr, "Unable to prep texture: %s\n", filename);
+		return GL_INVALID_VALUE;
+	}
+	
+	// create an OpenGL texture from it
+	GLuint texture;
+	glEnable(GL_TEXTURE_2D);
+	
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
+	
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	
+	glDisable(GL_TEXTURE_2D);
+	
+	// return width/height if ptrs were passed
+	if (width)
+		*width = image->w;
+	if (height)
+		*height = image->h;
+	
+	SDL_FreeSurface(image);
+	
+    return texture;
+}
+
+/*
+ // based on post by Luke Philpot: http://www.gamedev.net/community/forums/topic.asp?topic_id=184477
+ GLuint loadTexture(const char* filename, uint16_t* width, uint16_t* height)
 {
 	char actualPath[1024];
 	get_bundle_path(filename, actualPath, 1024);
@@ -204,7 +312,7 @@ GLuint loadTexture(const char* filename, uint16_t* width, uint16_t* height)
 		*height = tex->h;
 	
     return texture;
-}
+}*/
 
 
 void unloadTexture(GLuint* texture)
