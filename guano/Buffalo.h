@@ -3,7 +3,7 @@
 
 #include "main.h"
 class Gamepad;
-
+class Sprite2d;
 #define	kMaxBuffalo 50
 
 typedef struct Buffalo {
@@ -21,7 +21,7 @@ void buffInit();
 void buffReset();
 
 // draw a frame
-void buffRender();
+void buffRender(Sprite2d* sprite);
 
 // time passes
 void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad);
