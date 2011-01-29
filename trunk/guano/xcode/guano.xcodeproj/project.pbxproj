@@ -1,0 +1,385 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		002F39FA09D0881F00EBEB88 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 002F39F909D0881F00EBEB88 /* SDL.framework */; };
+		002F3A0009D0884600EBEB88 /* SDL.framework in Copy Frameworks into .app bundle */ = {isa = PBXBuildFile; fileRef = 002F39F909D0881F00EBEB88 /* SDL.framework */; };
+		002F3A2E09D0888800EBEB88 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 002F3A2C09D0888800EBEB88 /* SDLMain.m */; };
+		002F3C0109D093BD00EBEB88 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 002F3C0009D093BD00EBEB88 /* OpenGL.framework */; };
+		002F3C6109D0951E00EBEB88 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 002F3C6009D0951E00EBEB88 /* GLUT.framework */; };
+		0C2DB9CD104C78F300B05E35 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C2DB9AE104C78F300B05E35 /* Game.cpp */; };
+		0C2DB9CE104C78F300B05E35 /* Gamepad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C2DB9B0104C78F300B05E35 /* Gamepad.cpp */; };
+		0C2DB9D2104C78F300B05E35 /* mt19937ar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C2DB9C6104C78F300B05E35 /* mt19937ar.cpp */; };
+		0C2DB9D3104C78F300B05E35 /* Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C2DB9C8104C78F300B05E35 /* Sprite.cpp */; };
+		0C2DBA5C104C7A7800B05E35 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C2DBA5B104C7A7800B05E35 /* main.cpp */; };
+		0CAE9913104C89F000BF45E1 /* visitor_16px.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CAE9900104C89F000BF45E1 /* visitor_16px.png */; };
+		0CC87006104E185500B23F35 /* SDL_mixer.framework in Copy Frameworks into .app bundle */ = {isa = PBXBuildFile; fileRef = 0CE51CBD104C80A30088CAEC /* SDL_mixer.framework */; };
+		0CC8708C104E1EA300B23F35 /* SDL_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CC8702C104E1DE400B23F35 /* SDL_image.framework */; };
+		0CC8708D104E1EAB00B23F35 /* SDL_image.framework in Copy Frameworks into .app bundle */ = {isa = PBXBuildFile; fileRef = 0CC8702C104E1DE400B23F35 /* SDL_image.framework */; };
+		0CD547FA12BC609400A1F023 /* Man.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CD547F912BC609400A1F023 /* Man.cpp */; };
+		0CD5487212BC69A500A1F023 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CD5487112BC69A500A1F023 /* Camera.cpp */; };
+		0CD54C9012BCB18400A1F023 /* sparkle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CD54C8F12BCB18400A1F023 /* sparkle.png */; };
+		0CE51CBE104C80A30088CAEC /* SDL_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE51CBD104C80A30088CAEC /* SDL_mixer.framework */; };
+		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		002F39FD09D0883400EBEB88 /* Copy Frameworks into .app bundle */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				0CC8708D104E1EAB00B23F35 /* SDL_image.framework in Copy Frameworks into .app bundle */,
+				0CC87006104E185500B23F35 /* SDL_mixer.framework in Copy Frameworks into .app bundle */,
+				002F3A0009D0884600EBEB88 /* SDL.framework in Copy Frameworks into .app bundle */,
+			);
+			name = "Copy Frameworks into .app bundle";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		002F39F909D0881F00EBEB88 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = /Library/Frameworks/SDL.framework; sourceTree = "<absolute>"; };
+		002F3A2B09D0888800EBEB88 /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SDLMain.h; sourceTree = SOURCE_ROOT; };
+		002F3A2C09D0888800EBEB88 /* SDLMain.m */ = {isa = PBXFileReference; fileEncoding = 30; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; path = SDLMain.m; sourceTree = "<group>"; };
+		002F3C0009D093BD00EBEB88 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
+		002F3C6009D0951E00EBEB88 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../../../../../../../../System/Library/Frameworks/GLUT.framework; sourceTree = SOURCE_ROOT; };
+		0C2DB9AE104C78F300B05E35 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.cpp.cpp; name = Game.cpp; path = ../Game.cpp; sourceTree = SOURCE_ROOT; };
+		0C2DB9AF104C78F300B05E35 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Game.h; path = ../Game.h; sourceTree = SOURCE_ROOT; };
+		0C2DB9B0104C78F300B05E35 /* Gamepad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.cpp.cpp; name = Gamepad.cpp; path = ../Gamepad.cpp; sourceTree = SOURCE_ROOT; };
+		0C2DB9B1104C78F300B05E35 /* Gamepad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gamepad.h; path = ../Gamepad.h; sourceTree = SOURCE_ROOT; };
+		0C2DB9BF104C78F300B05E35 /* Rect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rect.h; sourceTree = "<group>"; };
+		0C2DB9C0104C78F300B05E35 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
+		0C2DB9C1104C78F300B05E35 /* vector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector2.h; sourceTree = "<group>"; };
+		0C2DB9C6104C78F300B05E35 /* mt19937ar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.cpp.cpp; name = mt19937ar.cpp; path = ../mt19937ar.cpp; sourceTree = SOURCE_ROOT; };
+		0C2DB9C7104C78F300B05E35 /* mt19937ar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mt19937ar.h; path = ../mt19937ar.h; sourceTree = SOURCE_ROOT; };
+		0C2DB9C8104C78F300B05E35 /* Sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.cpp.cpp; name = Sprite.cpp; path = ../Sprite.cpp; sourceTree = SOURCE_ROOT; };
+		0C2DB9C9104C78F300B05E35 /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sprite.h; path = ../Sprite.h; sourceTree = SOURCE_ROOT; };
+		0C2DBA5B104C7A7800B05E35 /* main.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; includeInIndex = 0; name = main.cpp; path = ../main.cpp; sourceTree = SOURCE_ROOT; };
+		0CAE9900104C89F000BF45E1 /* visitor_16px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = visitor_16px.png; path = ../visitor_16px.png; sourceTree = SOURCE_ROOT; };
+		0CC8702C104E1DE400B23F35 /* SDL_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL_image.framework; path = /Library/Frameworks/SDL_image.framework; sourceTree = "<absolute>"; };
+		0CD4104312BC596F00ACBC27 /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = main.h; path = ../main.h; sourceTree = SOURCE_ROOT; };
+		0CD547F812BC609400A1F023 /* Man.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Man.h; path = ../Man.h; sourceTree = SOURCE_ROOT; };
+		0CD547F912BC609400A1F023 /* Man.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Man.cpp; path = ../Man.cpp; sourceTree = SOURCE_ROOT; };
+		0CD5487012BC69A500A1F023 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Camera.h; path = ../Camera.h; sourceTree = SOURCE_ROOT; };
+		0CD5487112BC69A500A1F023 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Camera.cpp; path = ../Camera.cpp; sourceTree = SOURCE_ROOT; };
+		0CD54C8F12BCB18400A1F023 /* sparkle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sparkle.png; path = ../sparkle.png; sourceTree = SOURCE_ROOT; };
+		0CE51CBD104C80A30088CAEC /* SDL_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL_mixer.framework; path = /Library/Frameworks/SDL_mixer.framework; sourceTree = "<absolute>"; };
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		32CA4F630368D1EE00C91783 /* guano_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = guano_Prefix.pch; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8D1107320486CEB800E47090 /* guano.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = guano.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D11072E0486CEB800E47090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0CC8708C104E1EA300B23F35 /* SDL_image.framework in Frameworks */,
+				002F39FA09D0881F00EBEB88 /* SDL.framework in Frameworks */,
+				002F3C6109D0951E00EBEB88 /* GLUT.framework in Frameworks */,
+				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				002F3C0109D093BD00EBEB88 /* OpenGL.framework in Frameworks */,
+				0CE51CBE104C80A30088CAEC /* SDL_mixer.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				0CD5487012BC69A500A1F023 /* Camera.h */,
+				0CD5487112BC69A500A1F023 /* Camera.cpp */,
+				0CD547F812BC609400A1F023 /* Man.h */,
+				0CD547F912BC609400A1F023 /* Man.cpp */,
+				0CD4104312BC596F00ACBC27 /* main.h */,
+				0C2DBA5B104C7A7800B05E35 /* main.cpp */,
+				0C2DB9AF104C78F300B05E35 /* Game.h */,
+				0C2DB9AE104C78F300B05E35 /* Game.cpp */,
+				0C2DB9B1104C78F300B05E35 /* Gamepad.h */,
+				0C2DB9B0104C78F300B05E35 /* Gamepad.cpp */,
+				0C2DB9B4104C78F300B05E35 /* math */,
+				0C2DB9C6104C78F300B05E35 /* mt19937ar.cpp */,
+				0C2DB9C7104C78F300B05E35 /* mt19937ar.h */,
+				0C2DB9C9104C78F300B05E35 /* Sprite.h */,
+				0C2DB9C8104C78F300B05E35 /* Sprite.cpp */,
+				002F3A2B09D0888800EBEB88 /* SDLMain.h */,
+				002F3A2C09D0888800EBEB88 /* SDLMain.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		0C2DB9B4104C78F300B05E35 /* math */ = {
+			isa = PBXGroup;
+			children = (
+				0C2DB9BF104C78F300B05E35 /* Rect.h */,
+				0C2DB9C0104C78F300B05E35 /* Utility.h */,
+				0C2DB9C1104C78F300B05E35 /* vector2.h */,
+			);
+			includeInIndex = 0;
+			name = math;
+			path = ../math;
+			sourceTree = SOURCE_ROOT;
+		};
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0CC8702C104E1DE400B23F35 /* SDL_image.framework */,
+				0CE51CBD104C80A30088CAEC /* SDL_mixer.framework */,
+				002F39F909D0881F00EBEB88 /* SDL.framework */,
+				002F3C6009D0951E00EBEB88 /* GLUT.framework */,
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+				002F3C0009D093BD00EBEB88 /* OpenGL.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107320486CEB800E47090 /* guano.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* guano */ = {
+			isa = PBXGroup;
+			children = (
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = guano;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32CA4F630368D1EE00C91783 /* guano_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0CD54C8F12BCB18400A1F023 /* sparkle.png */,
+				0CAE9900104C89F000BF45E1 /* visitor_16px.png */,
+				8D1107310486CEB800E47090 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1107260486CEB800E47090 /* guano */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "guano" */;
+			buildPhases = (
+				8D1107290486CEB800E47090 /* Resources */,
+				8D11072C0486CEB800E47090 /* Sources */,
+				8D11072E0486CEB800E47090 /* Frameworks */,
+				002F39FD09D0883400EBEB88 /* Copy Frameworks into .app bundle */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = guano;
+			productInstallPath = "$(HOME)/Applications";
+			productName = guano;
+			productReference = 8D1107320486CEB800E47090 /* guano.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "guano" */;
+			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* guano */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D1107260486CEB800E47090 /* guano */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D1107290486CEB800E47090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0CAE9913104C89F000BF45E1 /* visitor_16px.png in Resources */,
+				0CD54C9012BCB18400A1F023 /* sparkle.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D11072C0486CEB800E47090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				002F3A2E09D0888800EBEB88 /* SDLMain.m in Sources */,
+				0C2DB9CD104C78F300B05E35 /* Game.cpp in Sources */,
+				0C2DB9CE104C78F300B05E35 /* Gamepad.cpp in Sources */,
+				0C2DB9D2104C78F300B05E35 /* mt19937ar.cpp in Sources */,
+				0C2DB9D3104C78F300B05E35 /* Sprite.cpp in Sources */,
+				0C2DBA5C104C7A7800B05E35 /* main.cpp in Sources */,
+				0CD547FA12BC609400A1F023 /* Man.cpp in Sources */,
+				0CD5487212BC69A500A1F023 /* Camera.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C01FCF4B08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PRODUCT_NAME = guano;
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		C01FCF4C08A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = guano;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks,
+					"$(FRAMEWORK_SEARCH_PATHS)",
+				);
+				GCC_INPUT_FILETYPE = automatic;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					/Library/Frameworks/SDL.framework/Headers,
+					"$(HEADER_SEARCH_PATHS)",
+					/Library/Frameworks/SDL_mixer.framework/Headers,
+					/Library/Frameworks/SDL_image.framework/Headers,
+				);
+				IPHONE_OPTIMIZE_OPTIONS = "-skip-PNGs";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "/usr/local/include/**";
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks,
+					"$(FRAMEWORK_SEARCH_PATHS)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					/Library/Frameworks/SDL.framework/Headers,
+					"$(HEADER_SEARCH_PATHS)",
+					/Library/Frameworks/SDL_mixer.framework/Headers,
+					/Library/Frameworks/SDL_image.framework/Headers,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PREBINDING = NO;
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "/usr/local/include/**";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "guano" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4B08A954540054247B /* Debug */,
+				C01FCF4C08A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "guano" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

@@ -1,0 +1,9 @@
+//
+// Prefix header for all source files of the 'guano' target in the 'guano' project
+//
+
+#include <SDL.h>
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
