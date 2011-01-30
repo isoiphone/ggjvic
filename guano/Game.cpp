@@ -13,7 +13,12 @@
 #endif
 
 // order / enums defined in Game.h
-const char Game::m_soundfile[Sound_NumSounds][32] = {"bling.wav"};
+const char Game::m_soundfile[Sound_NumSounds][32] = {
+	"bling.wav",
+	"bison1.wav",
+	"shoot.wav",
+	"hit.wav"
+};
 
 Game* Game::getInstance() {
 	static Game inst;
@@ -69,6 +74,21 @@ Game::~Game()
 {
 	stopGame();
 	delete m_font;
+}
+
+void Game::playBuffaloSound()
+{
+	playSound(m_sounds[Sound_Bison],-1);
+}
+
+void Game::playShootSound()
+{
+	playSound(m_sounds[Sound_Shoot],-1);
+}
+
+void Game::playHitSound()
+{
+	playSound(m_sounds[Sound_Hit],-1);
 }
 
 void Game::startGame()
@@ -187,7 +207,8 @@ void Game::spawnShot(vector2f pos, vector2f heading, float speed) {
 	// advance shot index, so next shot fired uses next available shot
 	m_shotIndex = (m_shotIndex+1)%kMaxShots;
 	
-	playSound(m_sounds[Sound_Bling], 0);
+	//playSound(m_sounds[Sound_Bling], 0);
+	playShootSound();
 }
 
 
@@ -278,7 +299,12 @@ void Game::render()
 }
 
 void Game::update(uint32_t elapsedMs, Gamepad* gamepad)
-{
+{	
+	if(m_state == GameState_Dead) {
+		if(gamepad->didPress(GAMEPAD_X)) startGame();
+		return;
+	}
+	
 	m_cam->update(elapsedMs, gamepad);
 	m_man->update(elapsedMs, gamepad);
 

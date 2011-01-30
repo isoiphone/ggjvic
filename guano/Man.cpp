@@ -27,29 +27,33 @@ void Man::render(Sprite2d* sprite) {
 	glPushMatrix();
 		glTranslatef(m_pos.x, m_pos.y, 0);
 
+	if(isDead()) {
+		sprite->draw(kManFrame+6);
+	} else {
 	switch (m_facing) {
 		case Facing_South:
-			sprite->draw(kManFrame+m_frame);
-			break;
-		case Facing_West:
-			sprite->draw(kManFrame+m_frame+2);
-			break;
-		case Facing_North:
-			sprite->draw(kManFrame+m_frame+4);
-			break;
-		case Facing_East:
-			glPushMatrix();
-			glTranslatef(32, 0, 0);
-			glScalef(-1, 1, 1);
-			sprite->draw(kManFrame+m_frame+2);
-			glPopMatrix();
-			break;
-	}
+				sprite->draw(kManFrame+m_frame);
+				break;
+			case Facing_West:
+				sprite->draw(kManFrame+m_frame+2);
+				break;
+			case Facing_North:
+				sprite->draw(kManFrame+m_frame+4);
+				break;
+			case Facing_East:
+				glPushMatrix();
+				glTranslatef(32, 0, 0);
+				glScalef(-1, 1, 1);
+				sprite->draw(kManFrame+m_frame+2);
+				glPopMatrix();
+				break;
+		}
 
 		if (m_ready) {
 			glTranslatef(m_aim.x*kAimDistance, m_aim.y*kAimDistance, 0);
 			sprite->draw(kCrosshairFrame);
 		}
+	}
 	glPopMatrix();
 
 

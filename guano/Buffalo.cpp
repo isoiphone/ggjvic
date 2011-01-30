@@ -271,6 +271,8 @@ void buffHit(int index) {
 
 	if (herd[index].hp <= 0) {
 		herd[index].bActive = false;
+		Game::getInstance()->playHitSound();
+		Game::getInstance()->playBuffaloSound();
 	}
 }
 
