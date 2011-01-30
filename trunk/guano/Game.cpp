@@ -164,7 +164,7 @@ void Game::render()
 	glPopMatrix();
 	
 	renderShots();
-	m_man->render();
+	m_man->render(m_buffalos);
 
 	sprintf(buffer, "elapsed %d", m_elapsed/1000);
 	glTranslatef(50,25,0);

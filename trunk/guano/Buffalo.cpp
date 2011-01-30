@@ -21,6 +21,7 @@ void buffReset() {
 void buffRender(Sprite2d* sprite) {
 	glPushMatrix();
 		glTranslatef(100, 100, 0);
+	glScalef(10, 10, 0);
 		sprite->draw(mFrame);
 	glPopMatrix();
 	

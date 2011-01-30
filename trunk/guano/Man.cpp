@@ -4,6 +4,8 @@
 #include "Gamepad.h"
 #include "Sprite.h"
 
+#define kManFrame 24
+
 // so autocomplete works
 #include <SDL_opengl.h>
 
@@ -21,7 +23,7 @@ Man::~Man() {
 }
 
 	
-void Man::render() {
+void Man::render(Sprite2d* sprite) {
 	glColor3fv(m_color);
 	
 	glPushMatrix();
@@ -29,13 +31,17 @@ void Man::render() {
 	// position
 	glTranslatef(m_pos.x, m_pos.y, 0);
 	glRotatef(m_rot*RADIANS2DEGREES, 0, 0, 1);
-	glScalef(32, 32, 0);
-
-	glBegin(GL_TRIANGLES);
-		glVertex3f(  0.66f, 0.0f, 0.0f);
-		glVertex3f( -0.5f, -0.5f, 0.0f);
-		glVertex3f( -0.5f, +0.5f, 0.0f);
-	glEnd();
+	
+	glRotatef(-M_PI*0.5, 0, 0, 1);
+	sprite->draw(kManFrame);
+	
+//	glScalef(32, 32, 0);
+//
+//	glBegin(GL_TRIANGLES);
+//		glVertex3f(  0.66f, 0.0f, 0.0f);
+//		glVertex3f( -0.5f, -0.5f, 0.0f);
+//		glVertex3f( -0.5f, +0.5f, 0.0f);
+//	glEnd();
 	
 	glPopMatrix();
 	
