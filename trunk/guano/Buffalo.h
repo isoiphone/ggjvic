@@ -9,10 +9,17 @@ class Sprite2d;
 typedef struct Buffalo {
 	vector2f pos;
 	float rad;
-
 	
 	float scale;
 	bool bActive;
+	
+	// 1: new born
+	// 2: young
+	// 3: adult
+	// 4: elderly
+	int stage;
+	int ageMs;
+	int hp;
 	
 	enum State {
 		State_Grazing,

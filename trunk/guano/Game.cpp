@@ -84,33 +84,48 @@ void Game::updateShots(uint32_t elapsedMs) {
 
 void Game::renderShots() {
 
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D,m_sparkle);
-
-	const float kWidth=16.0f;
-
+//	glEnable(GL_TEXTURE_2D);
+//	glBindTexture(GL_TEXTURE_2D,m_sparkle);
+//
+//	const float kWidth=16.0f;
+//
+//	for (int i=0; i<kMaxShots; ++i) {
+//		Shot& shot = m_shots[i];
+//		if (!shot.m_bActive)
+//			continue;
+//
+//		float color[4] = {1,1,1,1};
+//		glColor4fv(color);
+////		float color[3] = {genrand_real1()*0.65 + 0.35,genrand_real1()*0.65 + 0.35,genrand_real1()*0.65 + 0.35};
+////		glColor3fv(color);
+//
+//		glPushMatrix();
+//		glTranslatef(shot.m_pos.x, shot.m_pos.y, 0);
+////		glScalef(2.0, 1.0, 0);
+//		glBegin(GL_TRIANGLE_STRIP);
+//		glTexCoord2d(1,1); glVertex3f(+kWidth,+kWidth,0); // Top Right
+//		glTexCoord2d(0,1); glVertex3f(-kWidth,+kWidth,0); // Top Left
+//		glTexCoord2d(1,0); glVertex3f(+kWidth,-kWidth,0); // Bottom Right
+//		glTexCoord2d(0,0); glVertex3f(-kWidth,-kWidth,0); // Bottom Left
+//		glEnd();
+//		glPopMatrix();
+//	}
+//	glDisable(GL_TEXTURE_2D);
+	
 	for (int i=0; i<kMaxShots; ++i) {
 		Shot& shot = m_shots[i];
 		if (!shot.m_bActive)
 			continue;
-
-		float color[4] = {1,1,1,1};
-		glColor4fv(color);
-//		float color[3] = {genrand_real1()*0.65 + 0.35,genrand_real1()*0.65 + 0.35,genrand_real1()*0.65 + 0.35};
-//		glColor3fv(color);
-
+		
 		glPushMatrix();
-		glTranslatef(shot.m_pos.x, shot.m_pos.y, 0);
-//		glScalef(2.0, 1.0, 0);
-		glBegin(GL_TRIANGLE_STRIP);
-		glTexCoord2d(1,1); glVertex3f(+kWidth,+kWidth,0); // Top Right
-		glTexCoord2d(0,1); glVertex3f(-kWidth,+kWidth,0); // Top Left
-		glTexCoord2d(1,0); glVertex3f(+kWidth,-kWidth,0); // Bottom Right
-		glTexCoord2d(0,0); glVertex3f(-kWidth,-kWidth,0); // Bottom Left
-		glEnd();
+		glTranslatef(shot.m_pos.x+16, shot.m_pos.y+16, 0);
+		float angle = headingFromVector(shot.m_vel);
+		glRotatef(angle*RADIANS2DEGREES, 0, 0, 1);
+		glTranslatef(-16, -16, 0);
+		m_buffalos->draw(kSpearFrame);
 		glPopMatrix();
 	}
-	glDisable(GL_TEXTURE_2D);
+	
 
 	/*
 	glBegin(GL_POINTS);

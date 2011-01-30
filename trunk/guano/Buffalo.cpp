@@ -14,12 +14,16 @@ void buffInit() {
 
 void buffReset() {
 	for (int i=0; i<kMaxBuffalo; ++i) {
-		herd[i].scale = 2;
+		herd[i].scale = 1;
 		herd[i].bActive = true;
 		herd[i].pos = vector2f((rand()%kWorldWidth)*32,(rand()%kWorldHeight)*32);
 		herd[i].rad = 12;
 		herd[i].facing = (Facing)(Facing_South+rand()%4);
 		herd[i].state = (Buffalo::State)( rand()%((int)Buffalo::State_NumStates) );
+
+		herd[i].stage = 1;
+		herd[i].ageMs = 0;
+		herd[i].hp = 1;
 	}
 }
 
@@ -84,8 +88,23 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
 		if (!buff.bActive)
 			continue;
 		
+		buff.ageMs += elapsedMs;
+
+		if (buff.ageMs > kBuffaloAgeMs) {
+			buff.ageMs -= kBuffaloAgeMs;
+			if (buff.stage < 4) {
+				buff.hp = ++buff.stage;
+			}
+		}
+
+		// smooth animate the grow
+		// set scale according to health, 1:1 for now
+		if (buff.hp > buff.scale)
+			buff.scale = buff.scale*0.45+buff.hp*0.55;
+		
 		vector2f dp = ppos-buff.pos;
 		float mag = dp.length();
+		
 		
 		if (mag > kBuffDistThreshold)
 			continue;
@@ -109,7 +128,14 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
 	}		
 }
 
-void buffHit(int buffaloIndex) {
-	herd[buffaloIndex].bActive = false;
+void buffHit(int index) {
+	if (!herd[index].bActive)
+		return;
+	
+	--herd[index].hp;
+	
+	if (herd[index].hp <= 0) {
+		herd[index].bActive = false;
+	}
 }
 
