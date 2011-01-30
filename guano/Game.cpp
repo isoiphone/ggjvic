@@ -25,7 +25,7 @@ Game* Game::getInstance() {
 	return &inst;
 }
 
-Game::Game()
+Game::Game() : m_shake(0,0)
 {
     //linux hack
     #ifdef __linux
@@ -98,6 +98,7 @@ void Game::startGame()
 	terrReset();
 	m_man->m_health = 100;
 	
+	m_shake = vector2f(0,0);
 	m_killed = 0;
 	m_remaining = 0;
 	for (int i=0; i<kMaxBuffalo; ++i) {
@@ -323,8 +324,11 @@ void Game::update(uint32_t elapsedMs, Gamepad* gamepad)
 	m_cam->m_pos.x = MAX(0, MIN(kWorldWidth*32-kScreenWidth, m_cam->m_pos.x));
 	m_cam->m_pos.y = MAX(0, MIN(kWorldHeight*32-kScreenHeight, m_cam->m_pos.y));
 
+	m_cam->m_pos += m_shake;
+	
 	m_man->m_pos.x = MAX(0, MIN(kWorldWidth*32-32, m_man->m_pos.x));
 	m_man->m_pos.y = MAX(0, MIN(kWorldHeight*32-32, m_man->m_pos.y));
+	
 
 	// shots kill stuff
 	for (int i=0; i<kMaxShots; ++i) {
@@ -382,5 +386,8 @@ float Game::getCameraZoom() {
 
 void Game::hitMan(int buffalo) {
 	m_man->hit();
+	m_shake.x = genrand_real1() * 2 - 1;
+	m_shake.y = genrand_real1() * 2 - 1;
+	m_shake *= 5;
 }
 
