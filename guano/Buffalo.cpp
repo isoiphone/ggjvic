@@ -48,22 +48,32 @@ void buffReset() {
 }
 
 void buffRender(Sprite2d* sprite) {
+	// draw the dead
 	for (int i=0; i<kMaxBuffalo; ++i) {
 		Buffalo& buff = herd[i];
+		
+		if (!buff.bActive) {
+			glPushMatrix();
+			glTranslatef(buff.pos.x-16*buff.scale, buff.pos.y-16*buff.scale, 0);
+			glScalef(buff.scale, buff.scale, 0);
+			sprite->draw(kBuffaloFrame+6);
+			glPopMatrix();
+		}
+	}
+
+	// draw the living	
+	for (int i=0; i<kMaxBuffalo; ++i) {
+		Buffalo& buff = herd[i];
+
+		if (!buff.bActive)
+			continue;
 
 		glPushMatrix();
 			glTranslatef(buff.pos.x-16*buff.scale, buff.pos.y-16*buff.scale, 0);
 			glScalef(buff.scale, buff.scale, 0);
 
-		if (!buff.bActive) {
-			sprite->draw(kBuffaloFrame+6);
-			glPopMatrix();
-			continue;
-		}
-
-
 		if (buff.state == Buffalo::State_Angry) {
-			if ((Game::getInstance()->getTime()/666)%2)
+			if ((Game::getInstance()->getTime()/333)%2)
 				glColor3f(1.0, 0, 0);
 			else
 				glColor3f(1, 1, 1);
@@ -121,7 +131,7 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
 					const int n = (int)(genrand_real2()*kMaxBuffaloSpawn)+kMinBuffaloSpawn;
 					for (int s=0; s<n; ++s) {
 						float heading = genrand_real1()*M_PI*2.0;
-						float dist = genrand_real1()*24;
+						float dist = genrand_real1()*64+32;
 						vector2f ofs = vectorFromHeading(heading, dist);
 						spawn(buff.pos+ofs);
 					}
@@ -135,7 +145,7 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
 			buff.scale = buff.scale*0.75+buff.hp*0.25;
 			buff.rad = 12 + buff.scale;
 		}
-
+		
 		vector2f dp = ppos-buff.pos;
 		float mag = dp.length();
 
@@ -227,7 +237,6 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
 
 				shift = dp.normalized()*kBuffSpeed;
 				buff.pos += shift;
-
 				break;
 			}
 		}
