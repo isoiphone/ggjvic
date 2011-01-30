@@ -44,9 +44,12 @@
 
 #define kBuffSpeed				4		// movement
 #define kBuffDistThreshold		300		// how many pixels close you have to be to a buffalo to affect it
-#define kBuffaloAgeMs			10000	// how much time between grows
+#define kBuffaloAgeMs			7000	// how much time between grows
 #define	kMaxBuffalo				100		
 #define kInitialBuffalo			10
+
+#define kMinBuffaloSpawn		2
+#define kMaxBuffaloSpawn		4
 
 #define kWorldWidth				30	// in tiles
 #define kWorldHeight			30
