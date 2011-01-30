@@ -3,6 +3,7 @@
 
 #include "main.h"
 class Gamepad;
+class Sprite2d;
 
 class Man
 {
@@ -10,7 +11,7 @@ public:
 	Man();
 	~Man();
 
-	void render();
+	void render(Sprite2d* sprite);
 	void update(uint32_t elapsedMs, Gamepad* gamepad);
 
 	// position of back/bottom
