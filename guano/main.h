@@ -54,6 +54,7 @@
 #define kWorldWidth				30	// in tiles
 #define kWorldHeight			30
 
+#define kManRadius				15
 
 // art constants
 #define kBuffaloFrame		0
@@ -69,6 +70,7 @@
 #define kTitle_ExtinctFrame	1
 #define kTitle_DeadFrame	2
 #define kTitle_TitleFrame	3
+
 
 enum Facing {
 	Facing_South,

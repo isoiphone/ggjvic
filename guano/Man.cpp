@@ -95,4 +95,13 @@ void Man::update(uint32_t elapsedMs, Gamepad* gamepad) {
 }
 
 void Man::hit() {
+	if (m_health > 0) {
+		m_health -= 2;
+	}
 }
+
+bool Man::isDead() {
+	return (m_health <= 0);
+}
+
+

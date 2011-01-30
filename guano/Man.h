@@ -15,8 +15,9 @@ public:
 	void update(uint32_t elapsedMs, Gamepad* gamepad);
 
 	void hit();
-	bool isDead() { return false; }
+	bool isDead();
 	
+	int m_health;
 	vector2f m_pos;
 	vector2f m_aim;
 	bool m_ready;

@@ -20,11 +20,11 @@ static void spawn(vector2f pos) {
 			break;
 	}
 
-
 	if (herd[i].bActive)
 		return;
 
 	herd[i].scale = 1;
+	herd[i].speed = 1.0+((genrand_real1()*0.5)-0.25);
 	herd[i].bActive = true;
 	herd[i].pos = pos;
 	herd[i].rad = 12 + herd[i].scale;
@@ -149,6 +149,10 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
 		vector2f dp = ppos-buff.pos;
 		float mag = dp.length();
 
+		if (mag < kManRadius) {
+			Game::getInstance()->hitMan(i);
+		}
+		
         vector2f pos_a(0,0);
         vector2f head_a(0,0);
 
@@ -227,7 +231,7 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
 
 				//buff.pos -= vectorFromHeading(herd[i].bearing, kBuffSpeed);;
 
-				shift = -dp.normalized()*kBuffSpeed;
+				shift = -dp.normalized()*kBuffSpeed*buff.speed;
 				buff.pos += shift;
 				break;
 			}
@@ -235,7 +239,7 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
 
 				//buff.pos += vectorFromHeading(herd[i].bearing, kBuffSpeed);;
 
-				shift = dp.normalized()*kBuffSpeed;
+				shift = dp.normalized()*kBuffSpeed*buff.speed;
 				buff.pos += shift;
 				break;
 			}
