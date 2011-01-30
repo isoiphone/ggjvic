@@ -52,6 +52,15 @@ private:
 	int		m_shotIndex;
 	GLint	m_sparkle;
 	
+	// file names defined at top of Game.cpp
+	enum Sound { 
+		Sound_Bling=0,
+		Sound_NumSounds
+	};
+	
+	static const char m_soundfile[Sound_NumSounds][32];
+	Mix_Chunk* m_sounds[Sound_NumSounds];
+	
 	Sprite2d* m_font;
 	Sprite2d* m_buffalos;
 	Sprite2d* m_titles;
