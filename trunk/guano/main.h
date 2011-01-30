@@ -23,7 +23,7 @@
 
 /*
 #define	kScreenWidth	1280
-#define	kScreenHeight	1024
+#define	kScreenHeight	800
 #define	kScreenBpp		32
 #define kScreenFlags	SDL_OPENGL|SDL_FULLSCREEN
 */
@@ -51,7 +51,7 @@
 #define kMinBuffaloSpawn		2
 #define kMaxBuffaloSpawn		4
 
-#define kWorldWidth				30	// in tiles
+#define kWorldWidth				45	// in tiles
 #define kWorldHeight			30
 
 #define kManRadius				15

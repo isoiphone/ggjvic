@@ -106,6 +106,9 @@ void Game::startGame()
 			++m_remaining;
 	}
 	
+	memset(m_shots, 0, sizeof(m_shots));
+	m_shotIndex = 0;
+	
 	m_state = GameState_Welcome;
 	m_man->m_pos = vector2f(kWorldWidth*32*0.5,kWorldHeight*32*0.5);
 	m_cam->m_pos = vector2f(kWorldWidth*32*0.5-kScreenWidth*0.5,kWorldHeight*32*0.5-kScreenHeight*0.5);
