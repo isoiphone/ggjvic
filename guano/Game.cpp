@@ -12,6 +12,9 @@
 #include <unistd.h>
 #endif
 
+// order / enums defined in Game.h
+const char Game::m_soundfile[Sound_NumSounds][32] = {"bling.wav"};
+
 Game* Game::getInstance() {
 	static Game inst;
 	return &inst;
@@ -34,6 +37,11 @@ Game::Game()
 	m_shotIndex = 0;
 
 	// load resources
+	
+	for (int i=0; i<Sound_NumSounds; ++i) {
+		m_sounds[i] = loadSound(m_soundfile[i]);
+	}
+	
 	m_font = new Sprite2d();
 	m_font->load("visitor_16px.png", 16, 16);
 
@@ -176,6 +184,8 @@ void Game::spawnShot(vector2f pos, vector2f heading, float speed) {
 
 	// advance shot index, so next shot fired uses next available shot
 	m_shotIndex = (m_shotIndex+1)%kMaxShots;
+	
+	playSound(m_sounds[Sound_Bling], 0);
 }
 
 
@@ -249,7 +259,6 @@ void Game::render()
 	glFlush();
 	SDL_GL_SwapBuffers();
 }
-
 
 void Game::update(uint32_t elapsedMs, Gamepad* gamepad)
 {
