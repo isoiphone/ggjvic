@@ -2,7 +2,7 @@
 #include "Gamepad.h"
 #include "Sprite.h"
 #include "Game.h"
-
+#include "perlin.h"
 
 static struct {
 	uint8_t tile;
@@ -12,21 +12,22 @@ static struct {
 
 Obstacle obstacles[kMaxObstacles];
 static int mTime = 0;
-
+static Perlin mNoise(4,4,1,94); //Perlin(int octaves,float freq,float amp,int seed);
+					 
 void terrInit() {
 	for (int y=0; y<kWorldHeight; ++y) {
 	    for(int x = 0; x<kWorldWidth; ++x) {
-			switch (rand()%2) {
-				case 0:
-					mTile[x][y].tile = kGrassFrame;
-					break;
-				case 1:
-					mTile[x][y].tile = kDirtFrame;
-					break;
+			float v = mNoise.Get(x/(float)kWorldWidth, y/(float)kWorldHeight);
+			float r = (v+1.0)*0.5;
+			
+			if (r < 0.5) {
+				mTile[x][y].tile = kDirtFrame;
+			} else {
+				mTile[x][y].tile = kGrassFrame;
 			}
 			
-			if (rand()%100 < 10) {
-				mTile[x][y].rock = kRockFrame+rand()%2;
+			if (r < 0.35) {
+				mTile[x][y].rock = kRockFrame+(rand()%2);
 			} else {
 				mTile[x][y].rock = 0;
 			}
@@ -60,13 +61,10 @@ void terrRender(Sprite2d* sprite, Sprite2d* font) {
 				// if the tile will appear off the edge of the screen, don't draw it
 			} else {
 				// draw
-				
-				
 				sprite->draw(mTile[x][y].tile);
 				if (mTile[x][y].rock) {
 					sprite->draw(mTile[x][y].rock);
 				}
-
 			}
 			
 			// shift right

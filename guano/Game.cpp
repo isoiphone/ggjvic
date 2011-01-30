@@ -215,9 +215,9 @@ void Game::render()
 	renderShots();
 	m_man->render(m_buffalos);
 
-	sprintf(buffer, "elapsed %d", m_elapsed/1000);
-	glTranslatef(50,25,0);
-	m_font->drawText(buffer);
+//	sprintf(buffer, "elapsed %d", m_elapsed/1000);
+//	glTranslatef(50,25,0);
+//	m_font->drawText(buffer);
 
 	// RENDER HUD
 	glLoadIdentity();
