@@ -17,7 +17,8 @@ const char Game::m_soundfile[Sound_NumSounds][32] = {
 	"bling.wav",
 	"bison1.wav",
 	"shoot.wav",
-	"hit.wav"
+	"hit.wav",
+	"pop.wav"
 };
 
 Game* Game::getInstance() {
@@ -89,6 +90,11 @@ void Game::playShootSound()
 void Game::playHitSound()
 {
 	playSound(m_sounds[Sound_Hit],-1);
+}
+
+void Game::playPopSound()
+{
+	playSound(m_sounds[Sound_Pop],-1);
 }
 
 void Game::startGame()

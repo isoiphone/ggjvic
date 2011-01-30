@@ -134,6 +134,7 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
 						float dist = genrand_real1()*64+32;
 						vector2f ofs = vectorFromHeading(heading, dist);
 						spawn(buff.pos+ofs);
+						Game::getInstance()->playPopSound();
 					}
 				}
 			}

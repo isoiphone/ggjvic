@@ -32,6 +32,8 @@ public:
 	void playBuffaloSound();
 	void playShootSound();
 	void playHitSound();
+	void playPopSound();
+	
 private:
 	Game();
 	~Game();
@@ -65,6 +67,7 @@ private:
 		Sound_Bison,
 		Sound_Shoot,
 		Sound_Hit,
+		Sound_Pop,
 		Sound_NumSounds
 	};
 	
