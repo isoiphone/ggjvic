@@ -76,6 +76,7 @@ void Game::startGame()
 	m_elapsed = 0;
 	buffReset();
 	terrReset();
+	m_man->m_health = 100;
 	
 	m_killed = 0;
 	m_remaining = 0;
@@ -232,6 +233,21 @@ void Game::render()
 		glTranslatef(0, 16, 0);
 		sprintf(buffer, "remaining %d", m_remaining);
 		m_font->drawText(buffer);
+	
+		glTranslatef(0, 16, 0);
+	
+		float hpf = m_man->m_health/100.0;
+		glScalef(144*hpf, 16, 1);
+		glColor3f(0.8, 0.1, 0.1);
+		glBegin(GL_TRIANGLE_STRIP);
+		glTexCoord2d(1,1); glVertex3f(1,1,0); // Top Right
+		glTexCoord2d(0,1); glVertex3f(0,1,0); // Top Left
+		glTexCoord2d(1,0); glVertex3f(1,0,0); // Bottom Right
+		glTexCoord2d(0,0); glVertex3f(0,0,0); // Bottom Left
+		glEnd();
+		glColor3f(1, 1, 1);
+		glPopMatrix();
+	
 	glPopMatrix();
 	
 	
@@ -337,3 +353,8 @@ vector2f Game::getPlayerPos() {
 float Game::getCameraZoom() {
 	return m_cam->m_zoom;
 }
+
+void Game::hitMan(int buffalo) {
+	m_man->hit();
+}
+

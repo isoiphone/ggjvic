@@ -27,6 +27,8 @@ public:
 	
 	uint32_t getTime() { return m_elapsed; }
 	
+	void hitMan(int buffalo);
+	
 private:
 	Game();
 	~Game();

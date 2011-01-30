@@ -28,7 +28,7 @@ typedef struct Buffalo {
 
     float bearing;//0-2PI
 
-
+	float speed;
 	float scale;
 	bool bActive;
 
