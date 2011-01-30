@@ -222,7 +222,6 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
 			}
 		}
 
-
 		static const float kThird = 1.0/3.0;
 		if (shift.y < -kThird) {
 			buff.facing = Facing_North;
@@ -234,7 +233,9 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
 			buff.facing = Facing_East;
 		}
 
-
+		// don't let yee olde buffaloooo run off tha screen
+		buff.pos.x = MAX(0, MIN(kWorldWidth*32-kScreenWidth, buff.pos.x));
+		buff.pos.y = MAX(0, MIN(kWorldWidth*32-kScreenWidth, buff.pos.y));
 	}
 
 }
