@@ -27,12 +27,12 @@ static void spawn(vector2f pos) {
 	herd[i].scale = 1;
 	herd[i].bActive = true;
 	herd[i].pos = pos;
-	herd[i].rad = 12*herd[i].scale;
+	herd[i].rad = 12 + herd[i].scale;
 	herd[i].facing = (Facing)(Facing_South+rand()%4);
 	herd[i].state = (Buffalo::State)( rand()%((int)Buffalo::State_NumStates) );
 
 	herd[i].stage = 1;
-	herd[i].ageMs = 0;
+	herd[i].ageMs = genrand_real1()*kBuffaloAgeMs;
 	herd[i].hp = 1;
 }
 
@@ -43,6 +43,7 @@ void buffReset() {
 		vector2f pos = vector2f((rand()%kWorldWidth)*32,(rand()%kWorldHeight)*32);
 		spawn(pos);
 		herd[i].bearing = 0;
+		herd[i].hp = herd[i].stage = (int)(genrand_real2()*4);
 	}
 }
 
@@ -117,7 +118,13 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
 			if (buff.stage < 4) {
 				buff.hp = ++buff.stage;
 				if (buff.stage == 4) {
-					spawn(buff.pos);
+					const int n = (int)(genrand_real2()*kMaxBuffaloSpawn)+kMinBuffaloSpawn;
+					for (int s=0; s<n; ++s) {
+						float heading = genrand_real1()*M_PI*2.0;
+						float dist = genrand_real1()*24;
+						vector2f ofs = vectorFromHeading(heading, dist);
+						spawn(buff.pos+ofs);
+					}
 				}
 			}
 		}
@@ -126,7 +133,7 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
 		// set scale according to health, 1:1 for now
 		if (buff.hp > buff.scale) {
 			buff.scale = buff.scale*0.75+buff.hp*0.25;
-			buff.rad = buff.scale * 12;
+			buff.rad = 12 + buff.scale;
 		}
 
 		vector2f dp = ppos-buff.pos;
@@ -136,56 +143,54 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
         vector2f head_a(0,0);
 
 
-        for(int j = 0;j<kMaxBuffalo;j++)
-        {
-            herd[i].vel = vector2f(sin(herd[i].bearing),cos(herd[i].bearing));
-
-            if(i==j)
-            {
-                continue;
-            }
-            //get the average
-            pos_a += herd[j].pos;
-            head_a += vectorFromHeading(herd[j].bearing);
-
-            vector2f dist = herd[j].pos - herd[i].pos;
-
-            if(dist.length() < NEIGHBOR_THRESHOLD )
-            {
-                float  sep_b;
-
-
-                sep_b = normalize(atan2f(dist.y,dist.x) + vector2f::angle((vector2f(0,1)),dp));
-
-                 herd[i].bearing = mix(herd[i].bearing,sep_b,SEPARATION_WEIGHT);
-            }
-
-
-
-        }
-        pos_a /= kMaxBuffalo - 1;
-        head_a /= kMaxBuffalo - 1;
-
-        pos_a = pos_a - herd[i].pos;
-
-        float r;
-        r = (float)rand()/RAND_MAX;
-        r *= 2*PI;
-
-        //target
-        herd[i].bearing = mix(herd[i].bearing, normalize(atan2f(dp.y,dp.x)),TARGET_WEIGHT);
-
-        //random element
-        herd[i].bearing = mix(herd[i].bearing, r,RANDOM_WEIGHT);
-
-
-        //average direction of the group
-        herd[i].bearing = mix(herd[i].bearing,normalize(atan2f(head_a.y,head_a.x)),ALIGNMENT_WEIGHT);
-
-        //center of group
-        herd[i].bearing = mix(herd[i].bearing,normalize(atan2f(pos_a.y,pos_a.x)),-COHESION_WEIGHT);
-
-
+//        for(int j = 0;j<kMaxBuffalo;j++)
+//        {
+//            herd[i].vel = vector2f(sin(herd[i].bearing),cos(herd[i].bearing));
+//
+//            if(i==j)
+//            {
+//                continue;
+//            }
+//            //get the average
+//            pos_a += herd[j].pos;
+//            head_a += vectorFromHeading(herd[j].bearing);
+//
+//            vector2f dist = herd[j].pos - herd[i].pos;
+//
+//            if(dist.length() < NEIGHBOR_THRESHOLD )
+//            {
+//                float  sep_b;
+//
+//
+//                sep_b = normalize(atan2f(dist.y,dist.x) + vector2f::angle((vector2f(0,1)),dp));
+//
+//                 herd[i].bearing = mix(herd[i].bearing,sep_b,SEPARATION_WEIGHT);
+//            }
+//
+//
+//
+//        }
+//        pos_a /= kMaxBuffalo - 1;
+//        head_a /= kMaxBuffalo - 1;
+//
+//        pos_a = pos_a - herd[i].pos;
+//
+//        float r;
+//        r = (float)rand()/RAND_MAX;
+//        r *= 2*PI;
+//
+//        //target
+//        herd[i].bearing = mix(herd[i].bearing, normalize(atan2f(dp.y,dp.x)),TARGET_WEIGHT);
+//
+//        //random element
+//        herd[i].bearing = mix(herd[i].bearing, r,RANDOM_WEIGHT);
+//
+//
+//        //average direction of the group
+//        herd[i].bearing = mix(herd[i].bearing,normalize(atan2f(head_a.y,head_a.x)),ALIGNMENT_WEIGHT);
+//
+//        //center of group
+//        herd[i].bearing = mix(herd[i].bearing,normalize(atan2f(pos_a.y,pos_a.x)),-COHESION_WEIGHT);
 
 		if (mag > kBuffDistThreshold)
 			continue;
@@ -197,7 +202,12 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
 
 //				const float heading = (rand()/(float)RAND_MAX)*M_PI*2;
 				buff.pos += vectorFromHeading(herd[i].bearing, kBuffSpeed);
-
+				
+				if (genrand_real1() < 0.05)
+					buff.state = Buffalo::State_Afraid;
+				else if (genrand_real1() < 0.10)
+					buff.state = Buffalo::State_Angry;
+				
 //				const float heading = (rand()/(float)RAND_MAX)*M_PI*2;
 //				shift = vectorFromHeading(heading, kBuffSpeed);
 //				buff.pos += shift;
@@ -207,8 +217,8 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
 
 				//buff.pos -= vectorFromHeading(herd[i].bearing, kBuffSpeed);;
 
-				shift = dp.normalized()*kBuffSpeed;
-				buff.pos -= shift;
+				shift = -dp.normalized()*kBuffSpeed;
+				buff.pos += shift;
 				break;
 			}
 			case Buffalo::State_Angry: {
@@ -234,8 +244,8 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
 		}
 
 		// don't let yee olde buffaloooo run off tha screen
-		buff.pos.x = MAX(0, MIN(kWorldWidth*32-kScreenWidth, buff.pos.x));
-		buff.pos.y = MAX(0, MIN(kWorldWidth*32-kScreenWidth, buff.pos.y));
+		buff.pos.x = MAX(32, MIN(kWorldWidth*32-32, buff.pos.x));
+		buff.pos.y = MAX(32, MIN(kWorldHeight*32-32, buff.pos.y));
 	}
 
 }
