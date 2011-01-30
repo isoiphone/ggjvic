@@ -19,7 +19,7 @@ Gamepad::Gamepad() : state(0), change(0)
 				printf("Number of Buttons: %d\n", SDL_JoystickNumButtons(joy));
 				printf("Number of Balls: %d\n", SDL_JoystickNumBalls(joy));
 				
-				if (SDL_JoystickNumAxes(joy) == 2) {
+				if (SDL_JoystickNumAxes(joy) >= 2) {
 					break;
 				} else {
 					SDL_JoystickClose(joy);
