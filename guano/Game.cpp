@@ -301,7 +301,7 @@ void Game::render()
 
 void Game::update(uint32_t elapsedMs, Gamepad* gamepad)
 {	
-	if(m_state == GameState_Dead) {
+	if(m_state != GameState_Welcome && m_state != GameState_Playing) {
 		if(gamepad->didPress(GAMEPAD_X)) startGame();
 		return;
 	}
