@@ -11,10 +11,35 @@
 #define kWorldWidth		50
 #define kWorldHeight	50
 
+
+static struct {
+	uint8_t tile;
+	uint8_t rock;
+} mTile[kWorldWidth][kWorldHeight];
+
+
 Obstacle obstacles[kMaxObstacles];
 static int mTime = 0;
 
 void terrInit() {
+	for (int y=0; y<kWorldHeight; ++y) {
+	    for(int x = 0; x<kWorldWidth; ++x) {
+			switch (rand()%2) {
+				case 0:
+					mTile[x][y].tile = kGrassFrame;
+					break;
+				case 1:
+					mTile[x][y].tile = kDirtFrame;
+					break;
+			}
+			
+			if (rand()%100 < 10) {
+				mTile[x][y].rock = kRockFrame+rand()%2;
+			} else {
+				mTile[x][y].rock = 0;
+			}
+		}
+	}	
 }
 
 void terrReset() {
@@ -43,7 +68,12 @@ void terrRender(Sprite2d* sprite, Sprite2d* font) {
 				// if the tile will appear off the edge of the screen, don't draw it
 			} else {
 				// draw
-				sprite->draw(kGrassFrame);
+				
+				
+				sprite->draw(mTile[x][y].tile);
+				if (mTile[x][y].rock) {
+					sprite->draw(mTile[x][y].rock);
+				}
 
 			}
 			
