@@ -69,33 +69,6 @@ void Man::update(uint32_t elapsedMs, Gamepad* gamepad) {
 	vector2f walk = vector2f(gamepad->getX1(), gamepad->getY1());
 	vector2f face = vector2f(gamepad->getX2(), gamepad->getY2());
 
-	#ifdef __linux
-
-    SDL_Event event;
-
-    while( SDL_PollEvent( &event ) ) {
-    }
-
-    Uint8 *keystates = SDL_GetKeyState(NULL);
-
-    walk.x = 0;
-    walk.y = 0;
-
-    if(keystates[SDLK_DOWN])
-    {
-        walk.y = 32000;
-    }
-    if(keystates[SDLK_UP])
-    {walk.y = -32000;}
-    if(keystates[SDLK_LEFT])
-    {walk.x = -32000;}
-    if(keystates[SDLK_RIGHT])
-    {walk.x = 32000;}
-
-
-
-	#endif
-
 	if (walk.length() > 5000) {
 		m_pos += walk.normalized()*kMoveSpeed;
 		m_walktime += elapsedMs;
@@ -119,4 +92,7 @@ void Man::update(uint32_t elapsedMs, Gamepad* gamepad) {
 	} else {
 		m_ready = false;
 	}
+}
+
+void Man::hit() {
 }

@@ -64,7 +64,7 @@ void buffRender(Sprite2d* sprite);
 void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad);
 
 // a shot collided with some active buffalo
-void buffHit(int buffaloIndex);
+void buffHit(int index);
 
 //helper
 float normalize(float i);
