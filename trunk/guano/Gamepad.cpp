@@ -2,6 +2,8 @@
 
 Gamepad::Gamepad() : state(0), change(0)
 {
+	SDL_ShowCursor(false);
+	
 	key = SDL_GetKeyState(NULL);
 	joy = NULL;
 
@@ -16,7 +18,13 @@ Gamepad::Gamepad() : state(0), change(0)
 				printf("Number of Axes: %d\n", SDL_JoystickNumAxes(joy));
 				printf("Number of Buttons: %d\n", SDL_JoystickNumButtons(joy));
 				printf("Number of Balls: %d\n", SDL_JoystickNumBalls(joy));
-				break;
+				
+				if (SDL_JoystickNumAxes(joy) == 2) {
+					break;
+				} else {
+					SDL_JoystickClose(joy);
+					joy = NULL;
+				}
 			} else {
 				SDL_JoystickClose(joy);
 				joy = NULL;
@@ -27,6 +35,8 @@ Gamepad::Gamepad() : state(0), change(0)
 
 Gamepad::~Gamepad() 
 {
+	SDL_ShowCursor(true);
+
 	if (joy)
 		SDL_JoystickClose(joy);
 }
@@ -81,23 +91,59 @@ void Gamepad::poll()
 		}
 	// fall back onto keyboard input
 	} else {
-		static const int map[8][2] = {	{SDLK_UP,		GAMEPAD_UP},
-										{SDLK_DOWN,		GAMEPAD_DOWN}, 
-										{SDLK_LEFT,		GAMEPAD_LEFT},
-										{SDLK_RIGHT,	GAMEPAD_RIGHT},
-										{SDLK_LCTRL,	GAMEPAD_A},
-										{SDLK_SPACE,	GAMEPAD_B},
-										{SDLK_LSHIFT,	GAMEPAD_X},
-										{SDLK_LALT,		GAMEPAD_Y}	};
-
-		// We assume that SDL_PumpEvents() is called elsewhere.
-		// This is required to update the key array returned by SDL_GetKeyState()
-		for (int i=0; i<8; ++i) {
-			if (key[map[i][0]])
-				_setButton(map[i][1]);
-			else
-				_setButton(map[i][1], false);
+//		static const int map[8][2] = {	{SDLK_UP,		GAMEPAD_UP},
+//										{SDLK_DOWN,		GAMEPAD_DOWN}, 
+//										{SDLK_LEFT,		GAMEPAD_LEFT},
+//										{SDLK_RIGHT,	GAMEPAD_RIGHT},
+//										{SDLK_LCTRL,	GAMEPAD_A},
+//										{SDLK_SPACE,	GAMEPAD_B},
+//										{SDLK_LSHIFT,	GAMEPAD_X},
+//										{SDLK_LALT,		GAMEPAD_Y}	};
+		
+	// left analog stick == arrow keys
+		if (key[SDLK_LEFT] || key[SDLK_a]) {
+			x1 = -32000;
+		} else if (key[SDLK_RIGHT] || key[SDLK_d]) {
+			x1 = +32000;
+		} else {
+			x1 = 0;
 		}
+		
+		if (key[SDLK_UP] || key[SDLK_w]) {
+			y1 = -32000;
+		} else if (key[SDLK_DOWN] || key[SDLK_s]) {
+			y1 = +32000;
+		} else {
+			y1 = 0;
+		}
+		
+	// right analog stick == mouse
+		int mx=0,my=0;
+		uint8_t mb = SDL_GetMouseState(&mx, &my);
+		int dx = (mx - kScreenWidth*0.5);
+		int dy = (my - kScreenHeight*0.5);
+		
+		x2 = dx*200;
+		y2 = dy*200;
+		
+				
+	// space or left mouse == X
+		if (key[SDLK_SPACE] || (mb&SDL_BUTTON_LEFT)) {
+			_setButton(GAMEPAD_X);
+		} else {
+			_setButton(GAMEPAD_X, false);
+		}
+		
+		
+		
+//		// We assume that SDL_PumpEvents() is called elsewhere.
+//		// This is required to update the key array returned by SDL_GetKeyState()
+//		for (int i=0; i<8; ++i) {
+//			if (key[map[i][0]])
+//				_setButton(map[i][1]);
+//			else
+//				_setButton(map[i][1], false);
+//		}
 	}
 }
 
