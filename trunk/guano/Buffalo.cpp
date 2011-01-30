@@ -138,9 +138,9 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
 		
 		switch (buff.state) {
 			case Buffalo::State_Grazing: {
-				const float heading = (rand()/(float)RAND_MAX)*M_PI*2;
-				shift = vectorFromHeading(heading, kBuffSpeed);
-				buff.pos += shift;
+//				const float heading = (rand()/(float)RAND_MAX)*M_PI*2;
+//				shift = vectorFromHeading(heading, kBuffSpeed);
+//				buff.pos += shift;
 				break;
 			}
 			case Buffalo::State_Afraid: {

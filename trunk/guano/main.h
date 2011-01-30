@@ -62,6 +62,11 @@
 #define kCrosshairFrame		40
 #define kSpearFrame			48
 
+#define kTitle_OverpopFrame	0
+#define kTitle_ExtinctFrame	1
+#define kTitle_DeadFrame	2
+#define kTitle_TitleFrame	3
+
 enum Facing {
 	Facing_South,
 	Facing_West,
