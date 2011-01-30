@@ -37,11 +37,6 @@ Game::Game()
 	m_shotIndex = 0;
 
 	// load resources
-	
-	for (int i=0; i<Sound_NumSounds; ++i) {
-		m_sounds[i] = loadSound(m_soundfile[i]);
-	}
-	
 	m_font = new Sprite2d();
 	m_font->load("visitor_16px.png", 16, 16);
 
@@ -55,7 +50,13 @@ Game::Game()
 	m_titles = new Sprite2d();
 	m_titles->load("titles.png", 512, 512);
 
-	//m_sparkle = loadTexture("sparkle.png");
+	#ifdef __linux
+	chdir("sound");
+	#endif
+	
+	for (int i=0; i<Sound_NumSounds; ++i) {
+		m_sounds[i] = loadSound(m_soundfile[i]);
+	}
 
 	buffInit();
 	terrInit();
