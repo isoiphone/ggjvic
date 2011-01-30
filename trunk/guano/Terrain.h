@@ -22,7 +22,7 @@ void terrInit();
 void terrReset();
 
 // draw a frame
-void terrRender(Sprite2d* sprite);
+void terrRender(Sprite2d* sprite, Sprite2d* font);
 
 // time passes
 void terrUpdate(uint32_t elapsedMs, Gamepad* gamepad);
