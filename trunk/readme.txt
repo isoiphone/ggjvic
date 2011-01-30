@@ -22,6 +22,14 @@ WASD or ARROWS: move
 mouse: aim (relative to centre of screen)
 space OR click: fire
 
+SOURCE DEPENDENCIES
+=======
+SDL
+SDL_mixer
+OpenGL
+glu/glut
+
+Tested on OSX 10.6+, Windows 7.
 
 CREDITS
 =======
