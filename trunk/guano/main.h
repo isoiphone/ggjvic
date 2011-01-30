@@ -89,6 +89,7 @@ void get_bundle_path(const char* const filename, char* newpath, size_t maxlen);
 #define RANDRANGE(a,b) (genrand_real1()*((b)-(a))+(a))
 #define SMOOTHSTEP(x) ((x) * (x) * (3 - 2 * (x)))
 #define	RADIANS2DEGREES	57.2957795
+#define PI 3.14159265
 
 // heading in radians -> unit vector
 inline vector2f vectorFromHeading(float heading, float scale=1.0f) {
@@ -98,7 +99,7 @@ inline vector2f vectorFromHeading(float heading, float scale=1.0f) {
 inline float headingFromVector(vector2f vector) {
 //	if (vector.x == 0 && vector.y == 0)
 //		return 0;
-	
+
 	float theta = atan2f(vector.y, vector.x);
 	if (theta < 0)
 		theta += M_PI*2.0f;

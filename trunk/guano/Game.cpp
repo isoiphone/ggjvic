@@ -21,7 +21,7 @@ Game::Game()
 {
     //linux hack
     #ifdef __linux
-    chdir("/home/jeremy/ggjvic/guano");
+    chdir("../guano");
 	#endif
 
 	// init random
@@ -36,18 +36,22 @@ Game::Game()
 	// load resources
 	m_font = new Sprite2d();
 	m_font->load("visitor_16px.png", 16, 16);
-	
+
+    #ifdef __linux
+    chdir("art");
+    #endif
+
 	m_buffalos = new Sprite2d();
 	m_buffalos->load("buffalos.png", 32, 32);
 	
 	m_titles = new Sprite2d();
 	m_titles->load("titles.png", 512, 512);
 
-	m_sparkle = loadTexture("sparkle.png");
+	//m_sparkle = loadTexture("sparkle.png");
 
 	buffInit();
 	terrInit();
-	
+
 	startGame();
 }
 
@@ -197,7 +201,7 @@ void Game::render()
 	glPushMatrix();
 	buffRender(m_buffalos);
 	glPopMatrix();
-	
+
 	renderShots();
 	m_man->render(m_buffalos);
 
@@ -263,7 +267,7 @@ void Game::update(uint32_t elapsedMs, Gamepad* gamepad)
 	// man moves, camera follows man
 	vector2f dm = m_man->m_pos-m_cam->getCenter();
 	m_cam->m_pos += dm * kCameraChaseSpeed;
-	
+
 	m_cam->m_pos.x = MAX(0, MIN(kWorldWidth*32-kScreenWidth, m_cam->m_pos.x));
 	m_cam->m_pos.y = MAX(0, MIN(kWorldHeight*32-kScreenHeight, m_cam->m_pos.y));
 
@@ -274,11 +278,11 @@ void Game::update(uint32_t elapsedMs, Gamepad* gamepad)
 	for (int i=0; i<kMaxShots; ++i) {
 		if (!m_shots[i].m_bActive)
 			continue;
-		
+
 		for (int buff=0; buff<kMaxBuffalo; ++buff) {
 			if (!herd[buff].bActive)
 				continue;
-			
+
 			vector2f dp = herd[buff].pos-m_shots[i].m_pos;
 			if (dp.length() < herd[buff].rad*herd[buff].scale) {
 				buffHit(buff);
@@ -291,7 +295,7 @@ void Game::update(uint32_t elapsedMs, Gamepad* gamepad)
 			}
 		}
 	}
-	
+
 	// count the alive ones
 	m_remaining = 0;
 	for (int buff=0; buff<kMaxBuffalo; ++buff) {
