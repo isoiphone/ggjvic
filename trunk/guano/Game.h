@@ -2,7 +2,6 @@
 #define _GAME_H_INCLUDED
 
 #include "main.h"
-
 class Gamepad;
 class Sprite2d;
 class Man;

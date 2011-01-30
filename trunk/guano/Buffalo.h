@@ -10,6 +10,13 @@ typedef struct Buffalo {
 	vector2f pos;
 	float rad;
 	bool bActive;
+	
+	enum {
+		Facing_South,
+		Facing_West,
+		Facing_North,
+		Facing_East
+	} m_facing;	
 };
 
 extern Buffalo herd[kMaxBuffalo];

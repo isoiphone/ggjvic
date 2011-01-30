@@ -7,6 +7,10 @@ class Sprite2d;
 
 #define	kMaxObstacles 10
 
+#define kWorldWidth		50
+#define kWorldHeight	50
+
+
 typedef struct Obstacle {
 	vector2f pos;
 	float rad;
