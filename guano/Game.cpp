@@ -129,10 +129,10 @@ void Game::renderShots() {
 	 */
 }
 
-void Game::spawnShot(vector2f pos, float heading, float speed) {
+void Game::spawnShot(vector2f pos, vector2f heading, float speed) {
 	Shot& shot = m_shots[m_shotIndex];
 	shot.m_pos = pos;
-	shot.m_vel = vectorFromHeading(heading, speed);
+	shot.m_vel = heading*speed;
 	shot.m_bActive = true;
 
 	// advance shot index, so next shot fired uses next available shot
@@ -192,8 +192,8 @@ void Game::update(uint32_t elapsedMs, Gamepad* gamepad)
 	m_cam->update(elapsedMs, gamepad);
 	m_man->update(elapsedMs, gamepad);
 
-	if (gamepad->didPress(GAMEPAD_B)) {
-		spawnShot(m_man->m_pos, m_man->m_rot, (m_man->m_speed*10.0)+kShotSpeed+(genrand_real1()*kShotSpeed*0.11));
+	if (gamepad->didPress(GAMEPAD_X) && m_man->m_ready) {
+		spawnShot(m_man->m_pos, m_man->m_aim, kShotSpeed+(genrand_real1()*kShotSpeed*0.11));
 	}
 
 	buffUpdate(elapsedMs, gamepad);
