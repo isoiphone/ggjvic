@@ -67,7 +67,7 @@ void Sprite2d::draw(uint8_t frame)
 		width*(col+1), height*(row+1),
 	};
 
-	glColor3ub(0xFF, 0xFF, 0xFF);
+//	glColor3ub(0xFF, 0xFF, 0xFF);
 
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, texture);

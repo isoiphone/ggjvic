@@ -174,7 +174,7 @@ void Game::render()
 	glLoadIdentity();
 
 	glPushMatrix();
-	glTranslatef(50,25,0);
+	glTranslatef(10,10,0);
 	glScalef(2, 2, 0);
 		glTranslatef(0, 16, 0);
 
@@ -203,12 +203,32 @@ void Game::update(uint32_t elapsedMs, Gamepad* gamepad)
 	// man moves, camera follows man
 	vector2f dm = m_man->m_pos-m_cam->getCenter();
 	m_cam->m_pos += dm * kCameraChaseSpeed;
-
+	
+	// shots kill stuff
+	for (int i=0; i<kMaxShots; ++i) {
+		if (!m_shots[i].m_bActive)
+			continue;
+		
+		for (int buff=0; buff<kMaxBuffalo; ++buff) {
+			if (!herd[buff].bActive)
+				continue;
+			
+			vector2f dp = herd[buff].pos-m_shots[i].m_pos;
+			if (dp.length() < herd[buff].rad*herd[buff].scale) {
+				buffHit(buff);
+			}
+		}
+	}
+	
 	m_elapsed += elapsedMs;
 }
 
 vector2f Game::getCameraPos() {
 	return m_cam->m_pos;
+}
+
+vector2f Game::getPlayerPos() {
+	return m_man->m_pos;
 }
 
 float Game::getCameraZoom() {

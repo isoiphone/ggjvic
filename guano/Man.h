@@ -19,6 +19,8 @@ public:
 	bool m_ready;
 	
 	Facing m_facing;
+	int m_frame;
+	uint32_t m_walktime;
 };
 
 #endif

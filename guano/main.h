@@ -42,6 +42,8 @@
 
 #define kParticleSize			8
 
+#define kBuffSpeed 4
+#define kBuffDistThreshold		300	// how many pixels close you have to be to a buffalo to affect it
 
 // art constants
 #define kBuffaloFrame		0
@@ -51,6 +53,7 @@
 #define kDirtFrame			25
 #define kRockFrame			32
 #define kCrosshairFrame		40
+
 
 enum Facing {
 	Facing_South,

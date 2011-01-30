@@ -16,6 +16,7 @@ Man::Man() {
 	m_aim = vector2f(0,0);
 	m_ready = false;
 	m_facing = Facing_South;
+	m_frame = 0;
 };
 
 Man::~Man() {
@@ -28,19 +29,19 @@ void Man::render(Sprite2d* sprite) {
 	
 	switch (m_facing) {
 		case Facing_South:
-			sprite->draw(kManFrame);
+			sprite->draw(kManFrame+m_frame);
 			break;
 		case Facing_West:
-			sprite->draw(kManFrame+2);
+			sprite->draw(kManFrame+m_frame+2);
 			break;
 		case Facing_North:
-			sprite->draw(kManFrame+4);
+			sprite->draw(kManFrame+m_frame+4);
 			break;
 		case Facing_East:
 			glPushMatrix();
 			glTranslatef(32, 0, 0);
 			glScalef(-1, 1, 1);
-			sprite->draw(kManFrame+2);
+			sprite->draw(kManFrame+m_frame+2);
 			glPopMatrix();
 			break;
 	}
@@ -70,6 +71,8 @@ void Man::update(uint32_t elapsedMs, Gamepad* gamepad) {
 	
 	if (walk.length() > 5000) {
 		m_pos += walk.normalized()*kMoveSpeed;
+		m_walktime += elapsedMs;
+		m_frame = (m_walktime/250)%2;
 	}
 	
 	if (face.length() > 5000) {
