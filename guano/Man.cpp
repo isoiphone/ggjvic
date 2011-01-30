@@ -22,11 +22,11 @@ Man::Man() {
 Man::~Man() {
 }
 
-	
+
 void Man::render(Sprite2d* sprite) {
 	glPushMatrix();
 		glTranslatef(m_pos.x, m_pos.y, 0);
-	
+
 	switch (m_facing) {
 		case Facing_South:
 			sprite->draw(kManFrame+m_frame);
@@ -45,16 +45,16 @@ void Man::render(Sprite2d* sprite) {
 			glPopMatrix();
 			break;
 	}
-	
+
 		if (m_ready) {
 			glTranslatef(m_aim.x*kAimDistance, m_aim.y*kAimDistance, 0);
 			sprite->draw(kCrosshairFrame);
 		}
 	glPopMatrix();
-	
-	
-	
-	
+
+
+
+
 //	glScalef(32, 32, 0);
 //
 //	glBegin(GL_TRIANGLES);
@@ -68,17 +68,44 @@ void Man::render(Sprite2d* sprite) {
 void Man::update(uint32_t elapsedMs, Gamepad* gamepad) {
 	vector2f walk = vector2f(gamepad->getX1(), gamepad->getY1());
 	vector2f face = vector2f(gamepad->getX2(), gamepad->getY2());
-	
+
+	#ifdef __linux
+
+    SDL_Event event;
+
+    while( SDL_PollEvent( &event ) ) {
+    }
+
+    Uint8 *keystates = SDL_GetKeyState(NULL);
+
+    walk.x = 0;
+    walk.y = 0;
+
+    if(keystates[SDLK_DOWN])
+    {
+        walk.y = 32000;
+    }
+    if(keystates[SDLK_UP])
+    {walk.y = -32000;}
+    if(keystates[SDLK_LEFT])
+    {walk.x = -32000;}
+    if(keystates[SDLK_RIGHT])
+    {walk.x = 32000;}
+
+
+
+	#endif
+
 	if (walk.length() > 5000) {
 		m_pos += walk.normalized()*kMoveSpeed;
 		m_walktime += elapsedMs;
 		m_frame = (m_walktime/250)%2;
 	}
-	
+
 	if (face.length() > 5000) {
 		m_aim = face.normalized();
 		m_ready = true;
-		
+
 		static const float kThird = 1.0/3.0;
 		if (m_aim.y < -kThird) {
 			m_facing = Facing_North;
