@@ -100,7 +100,7 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
 		// smooth animate the grow
 		// set scale according to health, 1:1 for now
 		if (buff.hp > buff.scale)
-			buff.scale = buff.scale*0.45+buff.hp*0.55;
+			buff.scale = buff.scale*0.75+buff.hp*0.25;
 		
 		vector2f dp = ppos-buff.pos;
 		float mag = dp.length();
@@ -109,21 +109,38 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
 		if (mag > kBuffDistThreshold)
 			continue;
 		
+		vector2f shift;
+		
 		switch (buff.state) {
 			case Buffalo::State_Grazing: {
 				const float heading = (rand()/(float)RAND_MAX)*M_PI*2;
-				buff.pos += vectorFromHeading(heading, kBuffSpeed);
+				shift = vectorFromHeading(heading, kBuffSpeed);
+				buff.pos += shift;
 				break;
 			}
 			case Buffalo::State_Afraid: {
-				buff.pos -= dp.normalized()*kBuffSpeed;
+				shift = dp.normalized()*kBuffSpeed;
+				buff.pos -= shift;
 				break;
 			}
 			case Buffalo::State_Angry: {
-				buff.pos += dp.normalized()*kBuffSpeed;
+				shift = dp.normalized()*kBuffSpeed;
+				buff.pos += shift;
 				break;
 			}
 		}
+		
+		static const float kThird = 1.0/3.0;
+		if (shift.y < -kThird) {
+			buff.facing = Facing_North;
+		} else if (shift.y > kThird) {
+			buff.facing = Facing_South;
+		} else if (shift.x < 0) {
+			buff.facing = Facing_West;
+		} else {
+			buff.facing = Facing_East;
+		}
+		
 		
 	}		
 }
