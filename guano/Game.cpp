@@ -39,6 +39,9 @@ Game::Game()
 	
 	m_buffalos = new Sprite2d();
 	m_buffalos->load("buffalos.png", 32, 32);
+	
+	m_titles = new Sprite2d();
+	m_titles->load("titles.png", 512, 512);
 
 	m_sparkle = loadTexture("sparkle.png");
 
@@ -60,6 +63,15 @@ void Game::startGame()
 	m_elapsed = 0;
 	buffReset();
 	terrReset();
+	
+	m_killed = 0;
+	m_remaining = 0;
+	for (int i=0; i<kMaxBuffalo; ++i) {
+		if (herd[i].bActive) 
+			++m_remaining;
+	}
+	
+	m_state = GameState_Welcome;
 }
 
 void Game::stopGame()
@@ -145,6 +157,11 @@ void Game::renderShots() {
 }
 
 void Game::spawnShot(vector2f pos, vector2f heading, float speed) {
+	if (m_state == GameState_Welcome) {
+		m_state = GameState_Playing;
+		return;
+	}
+	
 	Shot& shot = m_shots[m_shotIndex];
 	shot.m_pos = pos;
 	shot.m_vel = heading*speed;
@@ -164,7 +181,7 @@ void Game::render()
 	glClear(GL_COLOR_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
+	
 	// translate based on camera pos
 	glTranslatef((int)-m_cam->m_pos.x, (int)-m_cam->m_pos.y, 0);
 	glScalef(m_cam->m_zoom, m_cam->m_zoom, 0);
@@ -190,12 +207,37 @@ void Game::render()
 
 	glPushMatrix();
 	glTranslatef(10,10,0);
-	glScalef(2, 2, 0);
 		glTranslatef(0, 16, 0);
-
-		sprintf(buffer, "buffalo");
+		sprintf(buffer, "killed %d", m_killed);
+		m_font->drawText(buffer);
+	
+		glTranslatef(0, 16, 0);
+		sprintf(buffer, "remaining %d", m_remaining);
 		m_font->drawText(buffer);
 	glPopMatrix();
+	
+	
+	
+// TITLES!!! OMG OVERLAY EM ON THE SCREEN
+	glLoadIdentity();
+	glTranslatef((kScreenWidth-512)*0.5, (kScreenHeight-512)*0.5, 0);
+	switch (m_state) {
+		case GameState_Welcome:
+			m_titles->draw(kTitle_TitleFrame);
+			break;
+		case GameState_Playing:
+			// nada
+			break;
+		case GameState_Overpopulation:
+			m_titles->draw(kTitle_OverpopFrame);
+			break;
+		case GameState_Extinct:
+			m_titles->draw(kTitle_ExtinctFrame);
+			break;
+		case GameState_Dead:
+			m_titles->draw(kTitle_DeadFrame);
+			break;
+	}
 
 	glFlush();
 	SDL_GL_SwapBuffers();
@@ -219,6 +261,7 @@ void Game::update(uint32_t elapsedMs, Gamepad* gamepad)
 	vector2f dm = m_man->m_pos-m_cam->getCenter();
 	m_cam->m_pos += dm * kCameraChaseSpeed;
 	
+	
 	// shots kill stuff
 	for (int i=0; i<kMaxShots; ++i) {
 		if (!m_shots[i].m_bActive)
@@ -231,10 +274,33 @@ void Game::update(uint32_t elapsedMs, Gamepad* gamepad)
 			vector2f dp = herd[buff].pos-m_shots[i].m_pos;
 			if (dp.length() < herd[buff].rad*herd[buff].scale) {
 				buffHit(buff);
+				// break tha spear
+				m_shots[i].m_bActive = false;
+				
+				// he gone done dieded
+				if (!herd[buff].bActive)
+					++m_killed;
 			}
 		}
 	}
 	
+	// count the alive ones
+	m_remaining = 0;
+	for (int buff=0; buff<kMaxBuffalo; ++buff) {
+		if (!herd[buff].bActive)
+			continue;
+		
+		++m_remaining;
+	}
+	
+	// win / lose
+	if (m_remaining == 0) {
+		m_state = GameState_Extinct;
+	} else if (m_man->isDead()) {
+		m_state = GameState_Dead;
+	} else if (m_remaining == kMaxBuffalo) {
+		m_state = GameState_Overpopulation;
+	}
 	m_elapsed += elapsedMs;
 }
 

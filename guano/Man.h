@@ -14,6 +14,8 @@ public:
 	void render(Sprite2d* sprite);
 	void update(uint32_t elapsedMs, Gamepad* gamepad);
 
+	bool isDead() { return false; }
+	
 	vector2f m_pos;
 	vector2f m_aim;
 	bool m_ready;

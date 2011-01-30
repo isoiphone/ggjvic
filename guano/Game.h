@@ -38,6 +38,14 @@ private:
 	void renderShots();
 	void spawnShot(vector2f pos, vector2f heading, float speed);
 	
+	enum {
+		GameState_Welcome,
+		GameState_Playing,
+		GameState_Dead,
+		GameState_Extinct,
+		GameState_Overpopulation,
+	} m_state;
+	
 	Camera*	m_cam;
 	Man*	m_man;
 	Shot	m_shots[kMaxShots];
@@ -46,8 +54,12 @@ private:
 	
 	Sprite2d* m_font;
 	Sprite2d* m_buffalos;
+	Sprite2d* m_titles;
 	
 	int32_t m_elapsed;
+	
+	int32_t m_killed;
+	int32_t m_remaining;
 };
 
 #endif
