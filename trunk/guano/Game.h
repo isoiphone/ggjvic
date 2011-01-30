@@ -29,6 +29,9 @@ public:
 	
 	void hitMan(int buffalo);
 	
+	void playBuffaloSound();
+	void playShootSound();
+	void playHitSound();
 private:
 	Game();
 	~Game();
@@ -57,6 +60,9 @@ private:
 	// file names defined at top of Game.cpp
 	enum Sound { 
 		Sound_Bling=0,
+		Sound_Bison,
+		Sound_Shoot,
+		Sound_Hit,
 		Sound_NumSounds
 	};
 	
