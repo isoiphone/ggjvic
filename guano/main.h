@@ -42,10 +42,15 @@
 
 #define kParticleSize			8
 
-#define kBuffSpeed 4
-#define kBuffDistThreshold		300	// how many pixels close you have to be to a buffalo to affect it
+#define kBuffSpeed				4		// movement
+#define kBuffDistThreshold		300		// how many pixels close you have to be to a buffalo to affect it
+#define kBuffaloAgeMs			10000	// how much time between grows
+#define	kMaxBuffalo				100		
+#define kInitialBuffalo			10
 
-#define kBuffaloAgeMs			10000
+#define kWorldWidth		25
+#define kWorldHeight	25
+
 
 // art constants
 #define kBuffaloFrame		0

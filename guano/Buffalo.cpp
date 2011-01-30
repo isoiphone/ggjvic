@@ -12,18 +12,36 @@ static int mTime = 0;
 void buffInit() {
 }
 
-void buffReset() {
-	for (int i=0; i<kMaxBuffalo; ++i) {
-		herd[i].scale = 1;
-		herd[i].bActive = true;
-		herd[i].pos = vector2f((rand()%kWorldWidth)*32,(rand()%kWorldHeight)*32);
-		herd[i].rad = 12;
-		herd[i].facing = (Facing)(Facing_South+rand()%4);
-		herd[i].state = (Buffalo::State)( rand()%((int)Buffalo::State_NumStates) );
 
-		herd[i].stage = 1;
-		herd[i].ageMs = 0;
-		herd[i].hp = 1;
+static void spawn(vector2f pos) {
+	int i;
+	for (i=0; i<kMaxBuffalo; ++i) {
+		if (!herd[i].bActive)
+			break;
+	}
+	
+	
+	if (herd[i].bActive)
+		return;
+	
+	herd[i].scale = 1;
+	herd[i].bActive = true;
+	herd[i].pos = pos;
+	herd[i].rad = 12*herd[i].scale;
+	herd[i].facing = (Facing)(Facing_South+rand()%4);
+	herd[i].state = (Buffalo::State)( rand()%((int)Buffalo::State_NumStates) );
+	
+	herd[i].stage = 1;
+	herd[i].ageMs = 0;
+	herd[i].hp = 1;	
+}
+
+void buffReset() {
+	memset(herd, 0, sizeof(Buffalo)*kMaxBuffalo);
+	
+	for (int i=0; i<kInitialBuffalo; ++i) {
+		vector2f pos = vector2f((rand()%kWorldWidth)*32,(rand()%kWorldHeight)*32);
+		spawn(pos);
 	}
 }
 
@@ -49,21 +67,23 @@ void buffRender(Sprite2d* sprite) {
 				glColor3f(1, 1, 1);
 		}
 		
+		const int elderly = buff.stage == 4 ? 8 : 0;
+		
 		switch (buff.facing) {
 			case Facing_South:
-				sprite->draw(kBuffaloFrame+mFrame);
+				sprite->draw(kBuffaloFrame+mFrame+elderly);
 				break;
 			case Facing_West:
-				sprite->draw(kBuffaloFrame+mFrame+2);
+				sprite->draw(kBuffaloFrame+mFrame+2+elderly);
 				break;
 			case Facing_North:
-				sprite->draw(kBuffaloFrame+mFrame+4);
+				sprite->draw(kBuffaloFrame+mFrame+4+elderly);
 				break;
 			case Facing_East:
 				glPushMatrix();
 				glTranslatef(32, 0, 0);
 				glScalef(-1, 1, 1);
-				sprite->draw(kBuffaloFrame+mFrame+2);
+				sprite->draw(kBuffaloFrame+mFrame+2+elderly);
 				glPopMatrix();
 				break;
 		}
@@ -94,13 +114,18 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
 			buff.ageMs -= kBuffaloAgeMs;
 			if (buff.stage < 4) {
 				buff.hp = ++buff.stage;
+				if (buff.stage == 4) {
+					spawn(buff.pos);
+				}
 			}
 		}
 
 		// smooth animate the grow
 		// set scale according to health, 1:1 for now
-		if (buff.hp > buff.scale)
+		if (buff.hp > buff.scale) {
 			buff.scale = buff.scale*0.75+buff.hp*0.25;
+			buff.rad = buff.scale * 12;
+		}
 		
 		vector2f dp = ppos-buff.pos;
 		float mag = dp.length();
