@@ -195,7 +195,7 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
 		switch (buff.state) {
 			case Buffalo::State_Grazing: {
 
-				const float heading = (rand()/(float)RAND_MAX)*M_PI*2;
+//				const float heading = (rand()/(float)RAND_MAX)*M_PI*2;
 				buff.pos += vectorFromHeading(herd[i].bearing, kBuffSpeed);
 
 //				const float heading = (rand()/(float)RAND_MAX)*M_PI*2;
@@ -209,7 +209,6 @@ void buffUpdate(uint32_t elapsedMs, Gamepad* gamepad) {
 
 				shift = dp.normalized()*kBuffSpeed;
 				buff.pos -= shift;
-
 				break;
 			}
 			case Buffalo::State_Angry: {

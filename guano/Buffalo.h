@@ -6,8 +6,6 @@ class Gamepad;
 class Sprite2d;
 
 
-#define	kMaxBuffalo 50
-
 #define NEIGHBOR_THRESHOLD 70
 
 #define STATIC_WEIGHT 16
