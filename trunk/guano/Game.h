@@ -34,7 +34,7 @@ private:
 	
 	void updateShots(uint32_t elapsedMs);
 	void renderShots();
-	void spawnShot(vector2f pos, float heading, float speed);
+	void spawnShot(vector2f pos, vector2f heading, float speed);
 	
 	Camera*	m_cam;
 	Man*	m_man;

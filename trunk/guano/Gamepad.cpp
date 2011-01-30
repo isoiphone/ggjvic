@@ -38,8 +38,16 @@ void Gamepad::poll()
 		static const int deadzone = 5000;
 		static const int buttmap[4][2] ={	{0, GAMEPAD_A},
 											{1, GAMEPAD_B},
-											{2, GAMEPAD_X},
+											{7, GAMEPAD_X},
 											{3, GAMEPAD_Y}	};
+		
+		x1 = SDL_JoystickGetAxis(joy, 0);
+		y1 = SDL_JoystickGetAxis(joy, 1);
+		
+		x2 = SDL_JoystickGetAxis(joy, 2);
+		y2 = SDL_JoystickGetAxis(joy, 3);
+
+
 		Sint16 axis_x = SDL_JoystickGetAxis(joy, 0);
 		Sint16 axis_y = SDL_JoystickGetAxis(joy, 1);
 

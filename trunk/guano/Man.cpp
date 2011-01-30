@@ -5,18 +5,18 @@
 #include "Sprite.h"
 
 #define kManFrame 24
+#define kCrosshairFrame	32
+
+#define kMoveSpeed	7
+#define kAimDistance 150
 
 // so autocomplete works
 #include <SDL_opengl.h>
 
 Man::Man() {
 	m_pos = vector2f(100,100);
-	m_rot = 0;
-	m_speed = 0;
-	
-	m_color[0] = 0.1;
-	m_color[1] = 0.1;
-	m_color[2] = 0.8;
+	m_aim = vector2f(0,0);
+	m_ready = false;
 };
 
 Man::~Man() {
@@ -24,16 +24,18 @@ Man::~Man() {
 
 	
 void Man::render(Sprite2d* sprite) {
-	glColor3fv(m_color);
-	
 	glPushMatrix();
+		glTranslatef(m_pos.x, m_pos.y, 0);
+		sprite->draw(kManFrame);
 	
-	// position
-	glTranslatef(m_pos.x, m_pos.y, 0);
-	glRotatef(m_rot*RADIANS2DEGREES, 0, 0, 1);
+		if (m_ready) {
+			glTranslatef(m_aim.x*kAimDistance, m_aim.y*kAimDistance, 0);
+			sprite->draw(kCrosshairFrame);
+		}
+	glPopMatrix();
 	
-	glRotatef(-M_PI*0.5, 0, 0, 1);
-	sprite->draw(kManFrame);
+	
+	
 	
 //	glScalef(32, 32, 0);
 //
@@ -43,30 +45,24 @@ void Man::render(Sprite2d* sprite) {
 //		glVertex3f( -0.5f, +0.5f, 0.0f);
 //	glEnd();
 	
-	glPopMatrix();
+	
 	
 }
 
-#define kMinSpeed	-4.0
-#define kMaxSpeed	+8.0
-#define kTurnSpeed	-0.15
-
 void Man::update(uint32_t elapsedMs, Gamepad* gamepad) {
-	if (gamepad->isHeld(GAMEPAD_LEFT)) {
-		m_rot += kTurnSpeed;
+	vector2f walk = vector2f(gamepad->getX1(), gamepad->getY1());
+	vector2f face = vector2f(gamepad->getX2(), gamepad->getY2());
+	
+	printf("%2.2f, %2.2f\n", walk.length(), face.length());
+	
+	if (walk.length() > 5000) {
+		m_pos += walk.normalized()*kMoveSpeed;
 	}
 	
-	if (gamepad->isHeld(GAMEPAD_RIGHT)) {
-		m_rot -= kTurnSpeed;
-	}
-	
-	if (gamepad->isHeld(GAMEPAD_UP)) {
-		m_speed = kMaxSpeed;
-	} else if (gamepad->isHeld(GAMEPAD_DOWN)) {
-		m_speed = kMinSpeed;
+	if (face.length() > 5000) {
+		m_aim = face.normalized();
+		m_ready = true;
 	} else {
-		m_speed = 0;
+		m_ready = false;
 	}
-	
-	m_pos += vectorFromHeading(m_rot, m_speed);
 }

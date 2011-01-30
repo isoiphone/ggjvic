@@ -14,13 +14,9 @@ public:
 	void render(Sprite2d* sprite);
 	void update(uint32_t elapsedMs, Gamepad* gamepad);
 
-	// position of back/bottom
 	vector2f m_pos;
-	
-	// heading
-	float	m_rot;
-	float	m_speed;
-	float	m_color[3];
+	vector2f m_aim;
+	bool m_ready;
 };
 
 #endif

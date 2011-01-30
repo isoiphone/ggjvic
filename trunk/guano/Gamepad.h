@@ -24,6 +24,11 @@ public:
 	int isHeld(uint8_t button);
 	int didRelease(uint8_t button);
 
+	int getX1() { return x1; }
+	int getY1() { return y1; }
+	int getX2() { return x2; }
+	int getY2() { return y2; }
+	
 	// Semi-protected methods.
 	// Dont use em unless you know full well what your doing :P
 	void _setButton(uint8_t button, bool on=true);
@@ -31,6 +36,7 @@ public:
 	uint8_t _getState();
 
 private:
+	int x1,y1, x2, y2;
 	uint8_t state;
 	uint8_t change;
 	Uint8* key;
