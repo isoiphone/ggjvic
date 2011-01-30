@@ -52,6 +52,13 @@
 #define kRockFrame			32
 #define kCrosshairFrame		40
 
+enum Facing {
+	Facing_South,
+	Facing_West,
+	Facing_North,
+	Facing_East
+};
+
 
 // helper functions
 class Mix_Chunk;

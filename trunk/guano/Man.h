@@ -18,12 +18,7 @@ public:
 	vector2f m_aim;
 	bool m_ready;
 	
-	enum {
-		Facing_South,
-		Facing_West,
-		Facing_North,
-		Facing_East
-	} m_facing;
+	Facing m_facing;
 };
 
 #endif
