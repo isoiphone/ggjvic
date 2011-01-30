@@ -8,6 +8,9 @@
 #define kDirtFrame	17
 #define kRockFrame	18
 
+#define kWorldWidth		50
+#define kWorldHeight	50
+
 Obstacle obstacles[kMaxObstacles];
 static int mTime = 0;
 
@@ -22,27 +25,38 @@ void terrReset() {
 	}
 }
 
-void terrRender(Sprite2d* sprite) {
+void terrRender(Sprite2d* sprite, Sprite2d* font) {
+	Game& game = *Game::getInstance();
+	vector2f cam = game.getCameraPos();
+//	float zoom = game.getCameraZoom();
 
-	vector2f pos = Game::getInstance()->getCameraPos();
-    glTranslatef(-pos.x,-pos.y,0);
-	for(int j = 0; j < kScreenHeight; j+=32)
-	{
-	    for(int i = 0; i < kScreenWidth; i+=32)
-	    {
-        glPushMatrix();
-		glTranslatef(i, j, 0);
-		sprite->draw(kGrassFrame);
-        glPopMatrix();
+	// draw the world!
+	for (int y=0; y<kWorldHeight; ++y) {
+		glPushMatrix();
+	    for(int x = 0; x<kWorldWidth; ++x) {
+			vector2f screenPos = vector2f(-cam.x+(x*32), -cam.y+(y*32));
+			
+			if (screenPos.y < 0-32 ||
+				screenPos.y > kScreenHeight || 
+				screenPos.x < 0-32 ||
+				screenPos.x > kScreenWidth) {
+				// if the tile will appear off the edge of the screen, don't draw it
+			} else {
+				// draw
+				sprite->draw(kGrassFrame);
+
+			}
+			
+			// shift right
+			glTranslatef(32, 0, 0);
+
 	    }
+		glPopMatrix();
+		
+		// shift down
+		glTranslatef(0, 32, 0);
 	}
 
-	// get game this way
-	float zoom = Game::getInstance()->getCameraZoom();
-
-	// or if you prefer
-	Game& game = *Game::getInstance();
-	zoom = game.getCameraZoom();
 }
 
 void terrUpdate(uint32_t elapsedMs, Gamepad* gamepad) {

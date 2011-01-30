@@ -156,11 +156,11 @@ void Game::render()
 
 	// RENDER GAME
 	glPushMatrix();
-	buffRender(m_buffalos);
+	terrRender(m_buffalos, m_font);
 	glPopMatrix();
 
 	glPushMatrix();
-	terrRender(m_buffalos);
+	buffRender(m_buffalos);
 	glPopMatrix();
 	
 	renderShots();
