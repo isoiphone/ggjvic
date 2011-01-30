@@ -72,6 +72,9 @@ void Game::startGame()
 	}
 	
 	m_state = GameState_Welcome;
+	m_man->m_pos = vector2f(kWorldWidth*32*0.5,kWorldHeight*32*0.5);
+	m_cam->m_pos = vector2f(kWorldWidth*32*0.5-kScreenWidth*0.5,kWorldHeight*32*0.5-kScreenHeight*0.5);
+	
 }
 
 void Game::stopGame()
@@ -206,7 +209,7 @@ void Game::render()
 	glLoadIdentity();
 
 	glPushMatrix();
-	glTranslatef(10,10,0);
+	glTranslatef(10,0,0);
 		glTranslatef(0, 16, 0);
 		sprintf(buffer, "killed %d", m_killed);
 		m_font->drawText(buffer);
@@ -261,7 +264,12 @@ void Game::update(uint32_t elapsedMs, Gamepad* gamepad)
 	vector2f dm = m_man->m_pos-m_cam->getCenter();
 	m_cam->m_pos += dm * kCameraChaseSpeed;
 	
-	
+	m_cam->m_pos.x = MAX(0, MIN(kWorldWidth*32-kScreenWidth, m_cam->m_pos.x));
+	m_cam->m_pos.y = MAX(0, MIN(kWorldHeight*32-kScreenHeight, m_cam->m_pos.y));
+
+	m_man->m_pos.x = MAX(0, MIN(kWorldWidth*32-32, m_man->m_pos.x));
+	m_man->m_pos.y = MAX(0, MIN(kWorldHeight*32-32, m_man->m_pos.y));
+
 	// shots kill stuff
 	for (int i=0; i<kMaxShots; ++i) {
 		if (!m_shots[i].m_bActive)

@@ -48,8 +48,8 @@
 #define	kMaxBuffalo				100		
 #define kInitialBuffalo			10
 
-#define kWorldWidth		25
-#define kWorldHeight	25
+#define kWorldWidth				30	// in tiles
+#define kWorldHeight			30
 
 
 // art constants
