@@ -1,6 +1,7 @@
 #include "Buffalo.h"
 #include "Gamepad.h"
 #include "Sprite.h"
+#include "Terrain.h"
 
 Buffalo herd[kMaxBuffalo];
 
@@ -13,15 +14,14 @@ void buffInit() {
 void buffReset() {
 	for (int i=0; i<kMaxBuffalo; ++i) {
 		herd[i].bActive = true;
-		herd[i].pos = vector2f(100,100);
-		herd[i].rad = 10;
+		herd[i].pos = vector2f((rand()%kWorldWidth)*32,(rand()%kWorldHeight)*32);
+		herd[i].rad = 12;
 	}
 }
 
 void buffRender(Sprite2d* sprite) {
 	glPushMatrix();
 		glTranslatef(100, 100, 0);
-	glScalef(10, 10, 0);
 		sprite->draw(mFrame);
 	glPopMatrix();
 	

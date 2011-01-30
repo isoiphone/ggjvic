@@ -3,14 +3,6 @@
 #include "Sprite.h"
 #include "Game.h"
 
-// art frame position in sprite sheet
-#define kGrassFrame 16
-#define kDirtFrame	17
-#define kRockFrame	18
-
-#define kWorldWidth		50
-#define kWorldHeight	50
-
 
 static struct {
 	uint8_t tile;

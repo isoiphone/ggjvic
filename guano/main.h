@@ -42,6 +42,17 @@
 
 #define kParticleSize			8
 
+
+// art constants
+#define kBuffaloFrame		0
+#define kOldBuffaloFrame	8
+#define kManFrame			16
+#define kGrassFrame			24
+#define kDirtFrame			25
+#define kRockFrame			32
+#define kCrosshairFrame		40
+
+
 // helper functions
 class Mix_Chunk;
 void initVideo();
