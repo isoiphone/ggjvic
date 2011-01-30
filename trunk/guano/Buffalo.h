@@ -4,7 +4,6 @@
 #include "main.h"
 class Gamepad;
 class Sprite2d;
-#define	kMaxBuffalo 50
 
 typedef struct Buffalo {
 	vector2f pos;
