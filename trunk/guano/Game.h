@@ -21,8 +21,11 @@ public:
 	void render();
 	void update(uint32_t elapsedMs, Gamepad* gamepad);
 
+	vector2f getPlayerPos();	
 	vector2f getCameraPos();
 	float getCameraZoom();
+	
+	uint32_t getTime() { return m_elapsed; }
 	
 private:
 	Game();

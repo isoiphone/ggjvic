@@ -8,10 +8,18 @@ class Sprite2d;
 
 typedef struct Buffalo {
 	vector2f pos;
-	float scale;
 	float rad;
+
+	
+	float scale;
 	bool bActive;
 	
+	enum State {
+		State_Grazing,
+		State_Afraid,
+		State_Angry,
+		State_NumStates,
+	} state;
 	Facing facing;	
 };
 
