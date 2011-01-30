@@ -31,6 +31,7 @@
 		0CFE91D012F5397B00CCCFFB /* titles.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CFE91CF12F5397B00CCCFFB /* titles.png */; };
 		0CFE932512F556E500CCCFFB /* bling.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0CFE932412F556E500CCCFFB /* bling.wav */; };
 		0CFE936512F5EE6F00CCCFFB /* perlin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFE936312F5EE6F00CCCFFB /* perlin.cpp */; };
+		0CFE94A212F6249600CCCFFB /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0CFE94A112F6249600CCCFFB /* pop.wav */; };
 		35A30F7F12F60BE000D633AC /* bison1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 35A30F7E12F60BE000D633AC /* bison1.wav */; };
 		35A30FC612F610A600D633AC /* hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 35A30FC412F610A600D633AC /* hit.wav */; };
 		35A30FC712F610A600D633AC /* shoot.wav in Resources */ = {isa = PBXBuildFile; fileRef = 35A30FC512F610A600D633AC /* shoot.wav */; };
@@ -89,6 +90,7 @@
 		0CFE932412F556E500CCCFFB /* bling.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = bling.wav; path = ../sound/bling.wav; sourceTree = SOURCE_ROOT; };
 		0CFE936312F5EE6F00CCCFFB /* perlin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = perlin.cpp; path = ../perlin.cpp; sourceTree = SOURCE_ROOT; };
 		0CFE936412F5EE6F00CCCFFB /* perlin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = perlin.h; path = ../perlin.h; sourceTree = SOURCE_ROOT; };
+		0CFE94A112F6249600CCCFFB /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = pop.wav; path = ../sound/pop.wav; sourceTree = SOURCE_ROOT; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -212,6 +214,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0CFE94A112F6249600CCCFFB /* pop.wav */,
 				35A30FC412F610A600D633AC /* hit.wav */,
 				35A30FC512F610A600D633AC /* shoot.wav */,
 				35A30F7E12F60BE000D633AC /* bison1.wav */,
@@ -293,6 +296,7 @@
 				35A30F7F12F60BE000D633AC /* bison1.wav in Resources */,
 				35A30FC612F610A600D633AC /* hit.wav in Resources */,
 				35A30FC712F610A600D633AC /* shoot.wav in Resources */,
+				0CFE94A212F6249600CCCFFB /* pop.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
