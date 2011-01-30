@@ -57,6 +57,8 @@ private:
 	int		m_shotIndex;
 	GLint	m_sparkle;
 	
+	vector2f m_shake;
+	
 	// file names defined at top of Game.cpp
 	enum Sound { 
 		Sound_Bling=0,
